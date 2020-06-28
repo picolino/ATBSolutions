@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATB.DfxToNcConverter", "ATB.DfxToNcConverter\ATB.DfxToNcConverter.csproj", "{9427936A-D9A8-43B2-A0EC-6466F213A9C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATB.DxfToNcConverter", "ATB.DxfToNcConverter\ATB.DxfToNcConverter.csproj", "{9427936A-D9A8-43B2-A0EC-6466F213A9C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeoECS", "LeoECS\LeoECS.csproj", "{FBD3C685-964E-4C37-B4DA-C1357992E6EC}"
 EndProject

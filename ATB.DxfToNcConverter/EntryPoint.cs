@@ -1,10 +1,10 @@
 ﻿using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
-using ATB.DfxToNcConverter.Components;
+using ATB.DxfToNcConverter.Components;
 using Leopotam.Ecs;
 
-namespace ATB.DfxToNcConverter
+namespace ATB.DxfToNcConverter
 {
     static class EntryPoint
     {
@@ -15,7 +15,7 @@ namespace ATB.DfxToNcConverter
                                   new Option<bool>(new[] {"-d", "--debug"}, "Debug mode. Provides additional logging information while running."),
                                   new Option<bool>(new[] {"-wi", "--what-if"}, "What-if mode. It provides additional logging information while running but not performs real converting.")
                               };
-            rootCommand.Description = "This application creates NC files from DFX files with corresponding file names.";
+            rootCommand.Description = "This application creates NC files from DXF files with corresponding file names.";
             rootCommand.Handler = CommandHandler.Create<bool, bool>(Run);
             return rootCommand.Invoke(args);
         }

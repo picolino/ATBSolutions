@@ -1,4 +1,4 @@
-﻿namespace ATB.DfxToNcConverter.Components
+﻿namespace ATB.DxfToNcConverter.Components
 {
     public struct Configuration
     {
