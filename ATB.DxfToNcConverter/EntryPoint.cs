@@ -1,7 +1,8 @@
 ﻿using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
-using ATB.DxfToNcConverter.Components;
+using ATB.DxfToNcConverter.Services;
+using ATB.DxfToNcConverter.Systems;
 using Leopotam.Ecs;
 
 namespace ATB.DxfToNcConverter
@@ -24,13 +25,15 @@ namespace ATB.DxfToNcConverter
         {
             var world = new EcsWorld();
             var systems = new EcsSystems(world);
-
-            var configurationEntity = world.NewEntity();
-            ref var configurationComponent = ref configurationEntity.Get<Configuration>();
-            configurationComponent.debug = debug;
-            configurationComponent.whatIf = whatIf;
             
-            // TODO: Add systems.
+            var configurationService = new ConfigurationService(debug, whatIf);
+
+            systems.Add(new DxfSearchProcessing())
+                   .Add(new DxfParseProcessing())
+                   .Add(new NcConstructProcessing())
+                   .Add(new NcSaveProcessing())
+                   
+                   .Inject(configurationService);
             
             try
             {

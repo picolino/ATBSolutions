@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Systems" />
+      <Folder Include="Components" />
     </ItemGroup>
 
 </Project>
