@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATB.DfxToNcConverter", "ATB.DfxToNcConverter\ATB.DfxToNcConverter.csproj", "{9427936A-D9A8-43B2-A0EC-6466F213A9C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeoECS", "LeoECS\LeoECS.csproj", "{FBD3C685-964E-4C37-B4DA-C1357992E6EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{9427936A-D9A8-43B2-A0EC-6466F213A9C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9427936A-D9A8-43B2-A0EC-6466F213A9C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9427936A-D9A8-43B2-A0EC-6466F213A9C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBD3C685-964E-4C37-B4DA-C1357992E6EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD3C685-964E-4C37-B4DA-C1357992E6EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD3C685-964E-4C37-B4DA-C1357992E6EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD3C685-964E-4C37-B4DA-C1357992E6EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
