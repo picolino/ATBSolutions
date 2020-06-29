@@ -35,7 +35,7 @@ namespace ATB.DxfToNcConverter
                    .Add(new DxfLoadProcessing())
                    .Add(new DxfValidationProcessing())
                    .Add(new DxfParseProcessing())
-                   .Add(new NcConstructProcessing())
+                   .Add(new NcBuildProcessing())
                    .Add(new NcSaveProcessing())
                    
                    .Inject(configurationService)

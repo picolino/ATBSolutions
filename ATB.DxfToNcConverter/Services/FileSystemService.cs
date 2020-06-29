@@ -9,5 +9,10 @@ namespace ATB.DxfToNcConverter.Services
         {
             return Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.dxf", SearchOption.TopDirectoryOnly);
         }
+
+        public void SaveFileWithContent(string fullPath, string content)
+        {
+            File.WriteAllText(fullPath, content);
+        }
     }
 }
