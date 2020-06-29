@@ -47,11 +47,19 @@ namespace ATB.DxfToNcConverter.Systems
                     {
                         var circleCenterToVertexPositionVector = vertex.Position - biggestCircleCenter2d;
                         var circleCenterToVertexPositionDistance = circleCenterToVertexPositionVector.Modulus();
-                        var sign = circleCenterToVertexPositionVector.X < biggestCircleZeroXAxis2d.X
-                                       ? -1
-                                       : 1;
+                        var signMinus = circleCenterToVertexPositionVector.X > biggestCircleZeroXAxis2d.X;
                         
-                        var angle = sign * Rad2Deg(Vector2.AngleBetween(biggestCircleZeroXAxis2d, circleCenterToVertexPositionVector));
+                        var angle = Rad2Deg(Vector2.AngleBetween(biggestCircleZeroXAxis2d, circleCenterToVertexPositionVector));
+
+                        if (signMinus)
+                        {
+                            angle = 360 - angle;
+                        }
+
+                        if (angle < offsetYAccumulator)
+                        {
+                            offsetYAccumulator = 360 - offsetYAccumulator;
+                        }
                         
                         var offsetX = RoundDefault(ncParametersComponent.startPointX - circleCenterToVertexPositionDistance - offsetXAccumulator);
                         var offsetY = RoundDefault(angle - offsetYAccumulator);
