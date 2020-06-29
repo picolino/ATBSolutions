@@ -8,6 +8,7 @@ namespace ATB.DxfToNcConverter.Systems
     public class NcSaveProcessing : IEcsRunSystem
     {
         private readonly IFileSystemService fileSystemService = null;
+        private readonly IConfigurationService configurationService = null;
         private readonly EcsFilter<DfxFileDefinition, NcProgram> filter = null;
         
         public void Run()
@@ -17,9 +18,9 @@ namespace ATB.DxfToNcConverter.Systems
                 ref var dfxFileDefinitionComponent = ref filter.Get1(idx);
                 ref var ncProgramComponent = ref filter.Get2(idx);
 
-                var fileName = Path.GetFileName(dfxFileDefinitionComponent.path) + ".nc";
+                var fileName = Path.GetFileNameWithoutExtension(dfxFileDefinitionComponent.path) + ".nc";
                 
-                fileSystemService.SaveFileWithContent(Path.Combine(Directory.GetCurrentDirectory(), fileName), ncProgramComponent.programText);
+                fileSystemService.SaveFileWithContent(Path.Combine(configurationService.WorkingDirectory, fileName), ncProgramComponent.programText);
             }
         }
     }

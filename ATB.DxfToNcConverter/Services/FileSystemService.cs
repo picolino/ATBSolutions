@@ -5,7 +5,7 @@ namespace ATB.DxfToNcConverter.Services
 {
     public class FileSystemService : IFileSystemService
     {
-        public IEnumerable<string> GetDxfFullFilePaths()
+        public IEnumerable<string> GetDxfFullFilePaths(string directoryToSearch)
         {
             return Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.dxf", SearchOption.TopDirectoryOnly);
         }

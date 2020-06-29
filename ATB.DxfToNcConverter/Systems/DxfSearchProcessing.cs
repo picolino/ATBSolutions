@@ -8,10 +8,11 @@ namespace ATB.DxfToNcConverter.Systems
     {
         private readonly EcsWorld world = null;
         private readonly IFileSystemService fileSystemService = null;
+        private readonly IConfigurationService configurationService = null;
         
         public void Run()
         {
-            foreach (var dxfFullFilePath in fileSystemService.GetDxfFullFilePaths())
+            foreach (var dxfFullFilePath in fileSystemService.GetDxfFullFilePaths(configurationService.WorkingDirectory))
             {
                 var dxfFullFilePathEntity = world.NewEntity();
                 ref var dfxFullFilePathComponent = ref dxfFullFilePathEntity.Get<DfxFileDefinition>();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.IO;
 using System.Numerics;
 using ATB.DxfToNcConverter.Services;
 using ATB.DxfToNcConverter.Systems;
@@ -27,7 +28,11 @@ namespace ATB.DxfToNcConverter
             var world = new EcsWorld();
             var systems = new EcsSystems(world);
             
-            var configurationService = new ConfigurationService(debug, whatIf, new Vector2(260, 0), 1.5); // TODO: Move hardcode to args
+            var configurationService = new ConfigurationService(debug, 
+                                                                whatIf, 
+                                                                Directory.GetCurrentDirectory(), 
+                                                                new Vector2(260, 0), 
+                                                                1.5); // TODO: Move all hardcode values to args
             var fileSystemService = new FileSystemService();
             var dxfService = new DxfService();
 

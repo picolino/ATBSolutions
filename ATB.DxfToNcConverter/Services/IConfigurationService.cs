@@ -8,5 +8,6 @@ namespace ATB.DxfToNcConverter.Services
         bool IsInWhatIfMode { get; }
         Vector2 EndPoint { get; }
         double HoleDrillTime { get; }
+        string WorkingDirectory { get; }
     }
 }
