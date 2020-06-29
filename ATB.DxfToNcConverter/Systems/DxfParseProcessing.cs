@@ -47,10 +47,14 @@ namespace ATB.DxfToNcConverter.Systems
                     {
                         var circleCenterToVertexPositionVector = vertex.Position - biggestCircleCenter2d;
                         var circleCenterToVertexPositionDistance = circleCenterToVertexPositionVector.Modulus();
-                        var angle = Vector2.AngleBetween(biggestCircleZeroXAxis2d, circleCenterToVertexPositionVector);
+                        var sign = circleCenterToVertexPositionVector.X < biggestCircleZeroXAxis2d.X
+                                       ? -1
+                                       : 1;
+                        
+                        var angle = sign * Rad2Deg(Vector2.AngleBetween(biggestCircleZeroXAxis2d, circleCenterToVertexPositionVector));
                         
                         var offsetX = RoundDefault(ncParametersComponent.startPointX - circleCenterToVertexPositionDistance - offsetXAccumulator);
-                        var offsetY = RoundDefault(Rad2Deg(angle) - offsetYAccumulator);
+                        var offsetY = RoundDefault(angle - offsetYAccumulator);
                         
                         offsetXAccumulator += offsetX;
                         offsetYAccumulator += offsetY;
@@ -63,7 +67,7 @@ namespace ATB.DxfToNcConverter.Systems
                                             });
                     }
                 }
-
+                
                 ncParametersComponent.drillParameters = drillParameters;
             }
         }
