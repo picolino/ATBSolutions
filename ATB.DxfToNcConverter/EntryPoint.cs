@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Numerics;
 using ATB.DxfToNcConverter.Services;
 using ATB.DxfToNcConverter.Systems;
 using Leopotam.Ecs;
@@ -26,7 +27,7 @@ namespace ATB.DxfToNcConverter
             var world = new EcsWorld();
             var systems = new EcsSystems(world);
             
-            var configurationService = new ConfigurationService(debug, whatIf);
+            var configurationService = new ConfigurationService(debug, whatIf, new Vector2(260, 0)); // TODO: Move endPoint set to args
             var fileSystemService = new FileSystemService();
             var dxfService = new DxfService();
 

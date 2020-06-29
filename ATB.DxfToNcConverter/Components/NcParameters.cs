@@ -5,9 +5,12 @@ namespace ATB.DxfToNcConverter.Components
 {
     public struct NcParameters
     {
-        public double outerRadius;
-        public double innerRadius;
+        public double startPointX;
+        public double startPointY;
 
-        public IEnumerable<NcDrillParameters> drillParameters;
+        public double endPointX;
+        public double endPointY;
+
+        public IEnumerable<NcDrillVertexParameters> drillParameters;
     }
 }

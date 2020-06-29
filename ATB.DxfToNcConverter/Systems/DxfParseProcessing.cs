@@ -1,12 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ATB.DxfToNcConverter.Components;
+using ATB.DxfToNcConverter.Services;
 using Leopotam.Ecs;
+using netDxf;
+using netDxf.Entities;
 
 namespace ATB.DxfToNcConverter.Systems
 {
     public class DxfParseProcessing : IEcsRunSystem
     {
+        private readonly IConfigurationService configurationService = null;
         private readonly EcsFilter<DfxFileContent> dxfFileContentFilter = null;
         
         public void Run()
@@ -16,27 +21,61 @@ namespace ATB.DxfToNcConverter.Systems
                 ref var dxfFileContentComponent = ref dxfFileContentFilter.Get1(dxfFileContentEntityId);
                 ref var dxfFileContentEntity = ref dxfFileContentFilter.GetEntity(dxfFileContentEntityId);
                 var dxfDocument = dxfFileContentComponent.dfxDocument;
-                
-                var orderedCircles = dxfDocument.Circles.OrderByDescending(o => o.Radius).ToList();
-                var orderPolylines = dxfDocument.LwPolylines.ToList();
+
+                var polylines = dxfDocument.LwPolylines.ToArray();
+                var biggestCircle = dxfDocument.Circles.OrderByDescending(o => o.Radius).First();
+
+                var biggestCircleRadius = biggestCircle.Radius;
+                var biggestCircleCenter2d = new Vector2(biggestCircle.Center.X, biggestCircle.Center.Y);
+                var biggestCircleZeroXAxis2d = new Vector2(0, biggestCircleRadius);
 
                 ref var ncParametersComponent = ref dxfFileContentEntity.Get<NcParameters>();
-                ncParametersComponent.outerRadius = orderedCircles[0].Radius;
-                ncParametersComponent.innerRadius = orderedCircles[^1].Radius;
-                
-                var drillParameters = new NcDrillParameters[orderPolylines.Count];
+                ncParametersComponent.endPointX = configurationService.EndPoint.X;
+                ncParametersComponent.endPointY = configurationService.EndPoint.Y;
 
-                for (var i = 0; i < drillParameters.Length; i++)
+                ncParametersComponent.startPointX = biggestCircleRadius;
+                ncParametersComponent.startPointY = 0;
+                
+                var drillParameters = new List<NcDrillVertexParameters>();
+
+                var offsetXAccumulator = 0d;
+                var offsetYAccumulator = 0d;
+                
+                foreach (var polyline in polylines)
                 {
-                    drillParameters[i] = new NcDrillParameters
-                                         {
-                                             radius = 0d, // TODO: Add correct radius from orderPolylines
-                                             stepAngle = 0d // TODO: Add correct step angle from orderPolylines
-                                         };
+                    foreach (var vertex in polyline.Vertexes)
+                    {
+                        var circleCenterToVertexPositionVector = vertex.Position - biggestCircleCenter2d;
+                        var circleCenterToVertexPositionDistance = circleCenterToVertexPositionVector.Modulus();
+                        var angle = Vector2.AngleBetween(biggestCircleZeroXAxis2d, circleCenterToVertexPositionVector);
+                        
+                        var offsetX = RoundDefault(ncParametersComponent.startPointX - circleCenterToVertexPositionDistance - offsetXAccumulator);
+                        var offsetY = RoundDefault(Rad2Deg(angle) - offsetYAccumulator);
+                        
+                        offsetXAccumulator += offsetX;
+                        offsetYAccumulator += offsetY;
+                        
+                        drillParameters.Add(new NcDrillVertexParameters
+                                            {
+                                                offsetX = offsetX,
+                                                offsetY = offsetY, 
+                                                drillTime = 1.5d // TODO: Set from configuration
+                                            });
+                    }
                 }
 
                 ncParametersComponent.drillParameters = drillParameters;
             }
+        }
+
+        private static double RoundDefault(double value)
+        {
+            return Math.Round(value, 4, MidpointRounding.AwayFromZero);
+        }
+
+        private static double Rad2Deg(double rad)
+        {
+            return rad * 180 / Math.PI;
         }
     }
 }
