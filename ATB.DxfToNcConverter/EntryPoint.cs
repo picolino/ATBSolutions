@@ -27,7 +27,7 @@ namespace ATB.DxfToNcConverter
             var world = new EcsWorld();
             var systems = new EcsSystems(world);
             
-            var configurationService = new ConfigurationService(debug, whatIf, new Vector2(260, 0)); // TODO: Move endPoint set to args
+            var configurationService = new ConfigurationService(debug, whatIf, new Vector2(260, 0), 1.5); // TODO: Move hardcode to args
             var fileSystemService = new FileSystemService();
             var dxfService = new DxfService();
 

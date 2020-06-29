@@ -7,5 +7,6 @@ namespace ATB.DxfToNcConverter.Services
         bool IsInDebugMode { get; }
         bool IsInWhatIfMode { get; }
         Vector2 EndPoint { get; }
+        double HoleDrillTime { get; }
     }
 }

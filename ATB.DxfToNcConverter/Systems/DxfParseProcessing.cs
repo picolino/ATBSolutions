@@ -59,7 +59,7 @@ namespace ATB.DxfToNcConverter.Systems
                                             {
                                                 offsetX = offsetX,
                                                 offsetY = offsetY, 
-                                                drillTime = 1.5d // TODO: Set from configuration
+                                                drillTime = configurationService.HoleDrillTime
                                             });
                     }
                 }
