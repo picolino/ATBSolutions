@@ -1,6 +1,6 @@
 ﻿namespace ATB.DxfToNcConverter.Components
 {
-    public struct DfxFullFilePath
+    public struct DfxFileDefinition
     {
         public string path;
     }

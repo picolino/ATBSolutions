@@ -28,14 +28,18 @@ namespace ATB.DxfToNcConverter
             
             var configurationService = new ConfigurationService(debug, whatIf);
             var fileSystemService = new FileSystemService();
+            var dxfService = new DxfService();
 
             systems.Add(new DxfSearchProcessing())
+                   .Add(new DxfLoadProcessing())
+                   .Add(new DxfValidationProcessing())
                    .Add(new DxfParseProcessing())
                    .Add(new NcConstructProcessing())
                    .Add(new NcSaveProcessing())
                    
                    .Inject(configurationService)
-                   .Inject(fileSystemService);
+                   .Inject(fileSystemService)
+                   .Inject(dxfService);
             
             try
             {

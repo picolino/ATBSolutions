@@ -2,40 +2,37 @@
 using System.Linq;
 using ATB.DxfToNcConverter.Components;
 using Leopotam.Ecs;
-using netDxf;
 
 namespace ATB.DxfToNcConverter.Systems
 {
     public class DxfParseProcessing : IEcsRunSystem
     {
-        private readonly EcsWorld world = null;
-        private readonly EcsFilter<DfxFullFilePath> filter = null;
+        private readonly EcsFilter<DfxFileContent> dxfFileContentFilter = null;
         
         public void Run()
         {
-            foreach (var dxfFullFilePathEntityId in filter)
+            foreach (var dxfFileContentEntityId in dxfFileContentFilter)
             {
-                ref var dxfFullFilePathComponent = ref filter.Get1(dxfFullFilePathEntityId);
+                ref var dxfFileContentComponent = ref dxfFileContentFilter.Get1(dxfFileContentEntityId);
+                ref var dxfFileContentEntity = ref dxfFileContentFilter.GetEntity(dxfFileContentEntityId);
+                var dxfDocument = dxfFileContentComponent.dfxDocument;
+                
+                var orderedCircles = dxfDocument.Circles.OrderByDescending(o => o.Radius).ToList();
+                var orderPolylines = dxfDocument.LwPolylines.ToList();
 
-                var document = DxfDocument.Load(dxfFullFilePathComponent.path);
-
-                var orderedCircles = document.Circles.OrderByDescending(o => o.Radius).ToList();
-
-                var ncParametersEntity = world.NewEntity();
-                ref var ncParametersComponent = ref ncParametersEntity.Get<NcParameters>();
+                ref var ncParametersComponent = ref dxfFileContentEntity.Get<NcParameters>();
                 ncParametersComponent.outerRadius = orderedCircles[0].Radius;
                 ncParametersComponent.innerRadius = orderedCircles[^1].Radius;
                 
-                var drillParameters = new List<NcDrillParameters>();
+                var drillParameters = new NcDrillParameters[orderPolylines.Count];
 
-                for (var i = 1; i < orderedCircles.Count - 1; i++)
+                for (var i = 0; i < drillParameters.Length; i++)
                 {
-                    var circle = orderedCircles[i];
-                    drillParameters.Add(new NcDrillParameters
-                                        {
-                                            radius = circle.Radius,
-                                            stepAngle = 0d // TODO: Add correct step angle
-                                        });
+                    drillParameters[i] = new NcDrillParameters
+                                         {
+                                             radius = 0d, // TODO: Add correct radius from orderPolylines
+                                             stepAngle = 0d // TODO: Add correct step angle from orderPolylines
+                                         };
                 }
 
                 ncParametersComponent.drillParameters = drillParameters;
