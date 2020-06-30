@@ -15,7 +15,7 @@ namespace ATB.DxfToNcConverter.Systems
             foreach (var dxfFullFilePath in fileSystemService.GetDxfFullFilePaths(configurationService.WorkingDirectory))
             {
                 var dxfFullFilePathEntity = world.NewEntity();
-                ref var dfxFullFilePathComponent = ref dxfFullFilePathEntity.Get<DfxFileDefinition>();
+                ref var dfxFullFilePathComponent = ref dxfFullFilePathEntity.Get<DxfFileDefinition>();
                 dfxFullFilePathComponent.path = dxfFullFilePath;
             }
         }

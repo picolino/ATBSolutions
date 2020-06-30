@@ -8,7 +8,7 @@ namespace ATB.DxfToNcConverter.Systems
 {
     public class DxfValidationProcessing : IEcsRunSystem
     {
-        private readonly EcsFilter<DfxFileContent> dxfFileContentFilter = null;
+        private readonly EcsFilter<DxfFileContent> dxfFileContentFilter = null;
         
         public void Run()
         {

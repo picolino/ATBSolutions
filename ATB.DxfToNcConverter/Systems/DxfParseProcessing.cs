@@ -12,7 +12,7 @@ namespace ATB.DxfToNcConverter.Systems
     public class DxfParseProcessing : IEcsRunSystem
     {
         private readonly IConfigurationService configurationService = null;
-        private readonly EcsFilter<DfxFileContent> dxfFileContentFilter = null;
+        private readonly EcsFilter<DxfFileContent> dxfFileContentFilter = null;
         
         public void Run()
         {

@@ -6,7 +6,7 @@ namespace ATB.DxfToNcConverter.Systems
 {
     public class DxfLoadProcessing : IEcsRunSystem
     {
-        private readonly EcsFilter<DfxFileDefinition> filter = null;
+        private readonly EcsFilter<DxfFileDefinition> filter = null;
 
         private readonly IDxfService dxfService = null;
         
@@ -17,7 +17,7 @@ namespace ATB.DxfToNcConverter.Systems
                 ref var dxfFullFilePathComponent = ref filter.Get1(dxfFullFilePathEntityId);
                 ref var dxfEntity = ref filter.GetEntity(dxfFullFilePathEntityId);
 
-                ref var dfxFileContent = ref dxfEntity.Get<DfxFileContent>();
+                ref var dfxFileContent = ref dxfEntity.Get<DxfFileContent>();
                 dfxFileContent.dfxDocument = dxfService.LoadDxfDocument(dxfFullFilePathComponent.path);
             }
         }

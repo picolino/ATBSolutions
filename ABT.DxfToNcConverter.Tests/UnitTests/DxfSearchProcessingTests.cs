@@ -9,10 +9,10 @@ namespace ABT.DxfToNcConverter.Tests.UnitTests
     {
         protected override void SetupWorld(EcsWorld world)
         {
-            dxfFileDefinitionFilter = world.GetFilter<EcsFilter<DfxFileDefinition>>();
+            dxfFileDefinitionFilter = world.GetFilter<EcsFilter<DxfFileDefinition>>();
         }
 
-        private EcsFilter<DfxFileDefinition> dxfFileDefinitionFilter;
+        private EcsFilter<DxfFileDefinition> dxfFileDefinitionFilter;
 
         [Test]
         public void DxfFileDefinitionComponentsAreCreatedForEachFile()
@@ -23,6 +23,11 @@ namespace ABT.DxfToNcConverter.Tests.UnitTests
             System.Run();
 
             Assert.That(dxfFileDefinitionFilter.GetEntitiesCount(), Is.EqualTo(2));
+            foreach (var idx in dxfFileDefinitionFilter)
+            {
+                ref var dxfFileDefinition = ref dxfFileDefinitionFilter.Get1(idx);
+                Assert.That(dxfFileDefinition.path, Is.EqualTo(FileSystemServiceStub.FilesInWorkingDirectory[idx]));
+            }
         }
     }
 }

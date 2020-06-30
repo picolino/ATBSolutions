@@ -2,7 +2,7 @@
 
 namespace ATB.DxfToNcConverter.Components
 {
-    public struct DfxFileContent
+    public struct DxfFileContent
     {
         public DxfDocument dfxDocument;
     }

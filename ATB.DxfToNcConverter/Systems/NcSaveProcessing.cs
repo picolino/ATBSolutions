@@ -9,7 +9,7 @@ namespace ATB.DxfToNcConverter.Systems
     {
         private readonly IFileSystemService fileSystemService = null;
         private readonly IConfigurationService configurationService = null;
-        private readonly EcsFilter<DfxFileDefinition, NcProgram> filter = null;
+        private readonly EcsFilter<DxfFileDefinition, NcProgram> filter = null;
         
         public void Run()
         {
