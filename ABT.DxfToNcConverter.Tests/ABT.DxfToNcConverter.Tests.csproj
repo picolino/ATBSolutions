@@ -17,8 +17,4 @@
       <ProjectReference Include="..\LeoECS\LeoECS.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="IntegrationTests" />
-    </ItemGroup>
-
 </Project>
