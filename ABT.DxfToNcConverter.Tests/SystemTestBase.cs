@@ -2,8 +2,15 @@
 
 namespace ABT.DxfToNcConverter.Tests
 {
-    public abstract class SystemTestBase<T> : TestBase where T : IEcsSystem
+    public abstract class SystemTestBase<T> : TestBase where T : IEcsSystem, new()
     {
-        protected abstract T System { get; set; }
+        protected T System { get; private set; }
+
+        protected override void SetupSystems(EcsSystems systems)
+        {
+            System = new T();
+            
+            systems.Add(System);
+        }
     }
 }

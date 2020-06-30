@@ -18,9 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Fakes" />
       <Folder Include="IntegrationTests" />
-      <Folder Include="UnitTests" />
     </ItemGroup>
 
 </Project>

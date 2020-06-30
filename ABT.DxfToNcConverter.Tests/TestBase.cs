@@ -1,3 +1,4 @@
+using ABT.DxfToNcConverter.Tests.Fakes;
 using Leopotam.Ecs;
 using NUnit.Framework;
 
@@ -5,9 +6,18 @@ namespace ABT.DxfToNcConverter.Tests
 {
     public abstract class TestBase
     {
+        protected ConfigurationServiceStub ConfigurationServiceStub { get; private set; }
+        protected DxfServiceStub DxfServiceStub { get; private set; }
+        protected FileSystemServiceStub FileSystemServiceStub { get; private set; }
+        
         [SetUp]
         protected virtual void Setup()
         {
+            ConfigurationServiceStub = new ConfigurationServiceStub();
+            DxfServiceStub = new DxfServiceStub();
+            FileSystemServiceStub = new FileSystemServiceStub();
+            
+            SetupEcs();
         }
 
         private void SetupEcs()
@@ -17,9 +27,19 @@ namespace ABT.DxfToNcConverter.Tests
 
             SetupWorld(world);
             SetupSystems(systems);
-            BeforeInitializeSystems(systems);
 
+            InjectDependencies(systems);
+            
+            BeforeInitializeSystems(systems);
+            
             systems.Init();
+        }
+
+        private void InjectDependencies(EcsSystems systems)
+        {
+            systems.Inject(ConfigurationServiceStub)
+                   .Inject(DxfServiceStub)
+                   .Inject(FileSystemServiceStub);
         }
         
         protected virtual void SetupWorld(EcsWorld world)
