@@ -48,7 +48,7 @@ namespace ATB.DxfToNcConverter.Systems
                         var angle = Rad2Deg(SignedAngleBetween(previousVertexVector, circleCenterToVertexPositionVector));
                         previousVertexVector = circleCenterToVertexPositionVector;
                         
-                        var offsetX = RoundDefault(ncParametersComponent.startPointX - circleCenterToVertexPositionDistance - offsetXAccumulator);
+                        var offsetX = RoundDefault(circleCenterToVertexPositionDistance - ncParametersComponent.startPointX - offsetXAccumulator);
                         var offsetY = RoundDefault(angle);
                         
                         offsetXAccumulator += offsetX;
