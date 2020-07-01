@@ -5,7 +5,6 @@ using ATB.DxfToNcConverter.Components;
 using ATB.DxfToNcConverter.Services;
 using Leopotam.Ecs;
 using netDxf;
-using netDxf.Entities;
 
 namespace ATB.DxfToNcConverter.Systems
 {
@@ -22,12 +21,10 @@ namespace ATB.DxfToNcConverter.Systems
                 ref var dxfFileContentEntity = ref dxfFileContentFilter.GetEntity(dxfFileContentEntityId);
                 var dxfDocument = dxfFileContentComponent.dfxDocument;
 
-                var polylines = dxfDocument.LwPolylines.ToArray();
                 var biggestCircle = dxfDocument.Circles.OrderByDescending(o => o.Radius).First();
 
                 var biggestCircleRadius = biggestCircle.Radius;
                 var biggestCircleCenter2d = new Vector2(biggestCircle.Center.X, biggestCircle.Center.Y);
-                var biggestCircleZeroXAxis2d = new Vector2(0, biggestCircleRadius);
 
                 ref var ncParametersComponent = ref dxfFileContentEntity.Get<NcParameters>();
                 ncParametersComponent.endPointX = configurationService.EndPoint.X;
@@ -41,7 +38,7 @@ namespace ATB.DxfToNcConverter.Systems
                 var offsetXAccumulator = 0d;
                 var previousVertexVector = Vector2.UnitY;
 
-                foreach (var polyline in polylines)
+                foreach (var polyline in dxfDocument.LwPolylines)
                 {
                     foreach (var vertex in polyline.Vertexes)
                     {
