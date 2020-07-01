@@ -3,6 +3,7 @@ using System.Linq;
 using ATB.DxfToNcConverter.Components;
 using ATB.DxfToNcConverter.Exceptions;
 using Leopotam.Ecs;
+using netDxf;
 
 namespace ATB.DxfToNcConverter.Systems
 {
@@ -24,10 +25,12 @@ namespace ATB.DxfToNcConverter.Systems
                     var circles = dxfDocument.Circles.ToArray();
                     var polylines = dxfDocument.LwPolylines.ToArray();
                     
-                    if (circles.Length < 2)
+                    if (circles.Length < 1)
                     {
                         throw new NotEnoughCirclesException();
                     }
+
+                    var biggestCircle = circles.OrderByDescending(o => o.Radius).First();
 
                     var centerPoint = circles[0].Center;
                     if (circles.Any(o => o.Center != centerPoint))
@@ -38,6 +41,15 @@ namespace ATB.DxfToNcConverter.Systems
                     if (polylines.Any(o => !o.IsClosed))
                     {
                         throw new PolylineIsNotClosedException();
+                    }
+
+                    if (polylines.Any(o => o.Vertexes.Any(o1 => 
+                                                              !IsPointInsideTheCircle(biggestCircle.Center.X, 
+                                                                                       biggestCircle.Center.Y, 
+                                                                                       biggestCircle.Radius, 
+                                                                                       o1.Position))))
+                    {
+                        throw new PolylineVertexIsOutsideOfTheBiggestCircleException();
                     }
                 }
                 catch (Exception e)
@@ -58,6 +70,12 @@ namespace ATB.DxfToNcConverter.Systems
                     dxfFileContentEntity.Destroy();
                 }
             }
+        }
+
+        private bool IsPointInsideTheCircle(double circleX, double circleY, double circleRadius, Vector2 point)
+        {
+            return (point.X - circleX) * (point.X - circleX) + 
+                   (point.Y - circleY) * (point.Y - circleY)    <= circleRadius * circleRadius;
         }
     }
 }

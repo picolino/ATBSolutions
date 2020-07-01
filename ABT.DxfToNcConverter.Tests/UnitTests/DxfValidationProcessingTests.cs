@@ -21,10 +21,9 @@ namespace ABT.DxfToNcConverter.Tests.UnitTests
 
         [Test]
         [TestCase(0, ExpectedResult = 0)]
-        [TestCase(1, ExpectedResult = 0)]
+        [TestCase(1, ExpectedResult = 1)]
         [TestCase(2, ExpectedResult = 1)]
-        [TestCase(3, ExpectedResult = 1)]
-        public int IfCirclesCountLessTwoThenEntityMustBeDeleted(int circlesCount)
+        public int IfCirclesCountLessOneThenEntityMustBeDeleted(int circlesCount)
         {
             var document = new DxfDocument();
             for (var i = 0; i < circlesCount; i++)
