@@ -39,33 +39,22 @@ namespace ATB.DxfToNcConverter.Systems
                 var drillParameters = new List<NcDrillVertexParameters>();
 
                 var offsetXAccumulator = 0d;
-                var offsetYAccumulator = 0d;
-                
+                var previousVertexVector = Vector2.UnitY;
+
                 foreach (var polyline in polylines)
                 {
                     foreach (var vertex in polyline.Vertexes)
                     {
                         var circleCenterToVertexPositionVector = vertex.Position - biggestCircleCenter2d;
                         var circleCenterToVertexPositionDistance = circleCenterToVertexPositionVector.Modulus();
-                        var signMinus = circleCenterToVertexPositionVector.X > biggestCircleZeroXAxis2d.X;
                         
-                        var angle = Rad2Deg(Vector2.AngleBetween(biggestCircleZeroXAxis2d, circleCenterToVertexPositionVector));
-
-                        if (signMinus)
-                        {
-                            angle = 360 - angle;
-                        }
-
-                        if (angle < offsetYAccumulator)
-                        {
-                            offsetYAccumulator = 360 - offsetYAccumulator;
-                        }
+                        var angle = Rad2Deg(SignedAngleBetween(previousVertexVector, circleCenterToVertexPositionVector));
+                        previousVertexVector = circleCenterToVertexPositionVector;
                         
                         var offsetX = RoundDefault(ncParametersComponent.startPointX - circleCenterToVertexPositionDistance - offsetXAccumulator);
-                        var offsetY = RoundDefault(angle - offsetYAccumulator);
+                        var offsetY = RoundDefault(angle);
                         
                         offsetXAccumulator += offsetX;
-                        offsetYAccumulator += offsetY;
                         
                         drillParameters.Add(new NcDrillVertexParameters
                                             {
@@ -88,6 +77,22 @@ namespace ATB.DxfToNcConverter.Systems
         private static double Rad2Deg(double rad)
         {
             return rad * 180 / Math.PI;
+        }
+
+        private static double SignedAngleBetween(Vector2 u, Vector2 v)
+        {
+            var angle = Math.Atan2(u.Y, u.X) - Math.Atan2(v.Y, v.X);
+            
+            if (angle > Math.PI)
+            {
+                angle -= 2 * Math.PI;
+            }
+            else if (angle <= -Math.PI)
+            {
+                angle += 2 * Math.PI;
+            }
+
+            return angle;
         }
     }
 }
