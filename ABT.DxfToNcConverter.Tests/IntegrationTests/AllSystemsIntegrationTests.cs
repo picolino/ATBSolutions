@@ -1,4 +1,5 @@
-﻿using ATB.DxfToNcConverter.Systems;
+﻿using System.IO;
+using ATB.DxfToNcConverter.Systems;
 using Leopotam.Ecs;
 using netDxf;
 using netDxf.Entities;
@@ -32,7 +33,8 @@ namespace ABT.DxfToNcConverter.Tests.IntegrationTests
             
             systems.Run();
 
-            Assert.That(FileSystemServiceStub.SavedFiles["C:\\tmp\\dxf_file.nc"], Is.EqualTo("")); // TODO: Fix test.
+            var ncExpected = GetTestFileContent("\\IntegrationTests\\TestData\\pdcc.nc");
+            Assert.That(FileSystemServiceStub.SavedFiles["C:\\tmp\\dxf_file.nc"], Is.EqualTo(ncExpected));
         }
 
         private DxfDocument CreatePlainDxfDocument()

@@ -1,3 +1,4 @@
+using System.IO;
 using ABT.DxfToNcConverter.Tests.Fakes;
 using Leopotam.Ecs;
 using NUnit.Framework;
@@ -50,6 +51,11 @@ namespace ABT.DxfToNcConverter.Tests
 
         protected virtual void BeforeInitializeSystems(EcsSystems systems)
         {
+        }
+
+        protected string GetTestFileContent(string relativePath)
+        {
+            return File.ReadAllText(TestContext.CurrentContext.TestDirectory + relativePath);
         }
     }
 }
