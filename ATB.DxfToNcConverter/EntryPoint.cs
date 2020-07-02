@@ -29,6 +29,8 @@ namespace ATB.DxfToNcConverter
         {
             ConfigureLogging(debug, whatIf);
             var logger = LogManager.GetCurrentClassLogger();
+            
+            logger.Info("DxfToNcConverter started...");
 
             if (debug)
             {
@@ -70,7 +72,6 @@ namespace ATB.DxfToNcConverter
 
             try
             {
-                logger.Info("DxfToNcConverter started...");
                 systems.Init();
                 systems.Run();
             }
@@ -92,14 +93,19 @@ namespace ATB.DxfToNcConverter
 
             var layout = new SimpleLayout("${longdate} [${level}] [${callsite}]: ${message}");
 
-            var logInFileTarget = new NLog.Targets.FileTarget("logFileTarget") { FileName = "${baseDir}\\logs\\${shortdate}.log" };
-            var logInConsoleTarget = new NLog.Targets.ConsoleTarget("logConsoleTarget");
-
-            logInFileTarget.Layout = layout;
-            logInConsoleTarget.Layout = layout;
+            var logInConsoleTarget = new NLog.Targets.ColoredConsoleTarget("logConsoleTarget")
+                                     {
+                                         Layout = layout
+                                     };
+            
+            var logInFileTarget = new NLog.Targets.FileTarget("logFileTarget")
+                                  {
+                                      FileName = "${baseDir}\\logs\\${shortdate}.log", 
+                                      Layout = layout
+                                  };
 
             config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Info, LogLevel.Fatal, logInConsoleTarget);
-            config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Info, LogLevel.Fatal, logInFileTarget);
+            config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Off, LogLevel.Fatal, logInFileTarget);
 
             LogManager.Configuration = config;
         }
