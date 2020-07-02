@@ -77,6 +77,8 @@ namespace ATB.DxfToNcConverter
                 systems.SetRunSystemState(idx, false);
             }
 
+            var fatalError = false;
+
             try
             {
                 systems.Init();
@@ -84,6 +86,7 @@ namespace ATB.DxfToNcConverter
             }
             catch (Exception e)
             {
+                fatalError = true;
                 logger.Fatal(e);
                 throw;
             }
@@ -92,6 +95,12 @@ namespace ATB.DxfToNcConverter
                 systems.Destroy();
                 world.Destroy();
                 logger.Info("DxfToNcConverter closed.");
+
+                if (fatalError || debug || whatIf)
+                {
+                    Console.WriteLine("Press any button to exit...");
+                    Console.Read();
+                }
             }
         }
 
