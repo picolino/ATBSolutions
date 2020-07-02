@@ -1,6 +1,8 @@
 using System.IO;
 using ATB.DxfToNcConverter.Tests.Fakes;
 using Leopotam.Ecs;
+using netDxf;
+using netDxf.Entities;
 using NUnit.Framework;
 
 namespace ATB.DxfToNcConverter.Tests
@@ -56,6 +58,28 @@ namespace ATB.DxfToNcConverter.Tests
         protected string GetTestFileContent(string relativePath)
         {
             return File.ReadAllText(TestContext.CurrentContext.TestDirectory + relativePath);
+        }
+        
+        protected DxfDocument CreateCorrectPlainDxfDocument()
+        {
+            var dxfDocument = new DxfDocument();
+            
+            dxfDocument.AddEntity(new Circle(Vector2.Zero, 200));
+            dxfDocument.AddEntity(new Circle(Vector2.Zero, 100));
+            
+            var vertexes = new []
+                           {
+                               new LwPolylineVertex(0, 150), 
+                               new LwPolylineVertex(150, 0), 
+                               new LwPolylineVertex(0, -150), 
+                               new LwPolylineVertex(-150, 0)
+                           };
+            
+            var polyline = new LwPolyline(vertexes, true);
+
+            dxfDocument.AddEntity(polyline);
+
+            return dxfDocument;
         }
     }
 }

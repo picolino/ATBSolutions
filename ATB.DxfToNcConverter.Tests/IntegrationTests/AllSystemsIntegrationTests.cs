@@ -27,7 +27,7 @@ namespace ATB.DxfToNcConverter.Tests.IntegrationTests
         public void PlainDocumentConvertsCorrectly()
         {
             ConfigurationServiceStub.WorkingDirectory = "C:\\tmp\\";
-            var dxfDocument = CreatePlainDxfDocument();
+            var dxfDocument = CreateCorrectPlainDxfDocument();
             FileSystemServiceStub.FilesInWorkingDirectory.Add("C:\\tmp\\dxf_file.dxf");
             DxfServiceStub.DxfDocuments.Add("C:\\tmp\\dxf_file.dxf", dxfDocument);
             
@@ -35,28 +35,6 @@ namespace ATB.DxfToNcConverter.Tests.IntegrationTests
 
             var ncExpected = GetTestFileContent("\\IntegrationTests\\TestData\\pdcc.nc");
             Assert.That(FileSystemServiceStub.SavedFiles["C:\\tmp\\dxf_file.nc"], Is.EqualTo(ncExpected));
-        }
-
-        private DxfDocument CreatePlainDxfDocument()
-        {
-            var dxfDocument = new DxfDocument();
-            
-            dxfDocument.AddEntity(new Circle(Vector2.Zero, 200));
-            dxfDocument.AddEntity(new Circle(Vector2.Zero, 100));
-            
-            var vertexes = new []
-                           {
-                               new LwPolylineVertex(0, 150), 
-                               new LwPolylineVertex(150, 0), 
-                               new LwPolylineVertex(0, -150), 
-                               new LwPolylineVertex(-150, 0)
-                           };
-            
-            var polyline = new LwPolyline(vertexes, true);
-
-            dxfDocument.AddEntity(polyline);
-
-            return dxfDocument;
         }
     }
 }
