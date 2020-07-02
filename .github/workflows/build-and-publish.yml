@@ -6,17 +6,15 @@ on:
       - 'v*'
 
 env:
-  APP_NAME: your-app-name              # set this to your application's name
+  APP_NAME: ABT.DxfToNcConverter       # set this to your application's name
   APP_PACKAGE_PATH: './published'      # set this to the path to your app project, defaults to the repository root
   NETCORE_VERSION: '3.1.101'           # set this to the .NET Core version to use
   GITHUB_TOKEN: ${{ github.token }}    # set this to access token
 
 jobs:
   build_and_publish:
-    name: Build and Publish
-    
+    name: Build and Publish    
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v2
       
@@ -35,23 +33,31 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
     
     - name: Publish app for deploy
-      run: dotnet publish ./ATB.DxfToNcConverter/ATB.DxfToNcConverter.csproj --configuration Release --no-build --output ${{ env.APP_PACKAGE_PATH }} /p:PublishSingleFile=true /p:CopyOutputSymbolsToPublishDirectory=false
+      run: dotnet publish ./${{ env.APP_NAME }}/${{ env.APP_NAME }}.csproj --configuration Release --no-build --output ${{ env.APP_PACKAGE_PATH }} /p:PublishSingleFile=true /p:CopyOutputSymbolsToPublishDirectory=false
       
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
       with:
         name: ABT.DxfToNcConverter
         path: ${{ env.APP_PACKAGE_PATH }} 
-        
+
+  deploy:
+    name: Deploy
+    runs-on: windows-latest
+    steps:
+            
     - name: Get latest release
       id: get_latest_release
       uses: bruceadams/get-release@v1.2.0
-    
+      
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v2
+
     - name: Upload artifact to release
       uses: actions/upload-release-asset@v1.0.2
       with:
         upload_url: ${{ steps.get_latest_release.outputs.upload_url }}
-        asset_path: ${{ env.APP_PACKAGE_PATH }}/ABT.DxfToNcConverter.zip
-        asset_name: ABT.DxfToNcConverter.zip
+        asset_path: ${{ env.APP_NAME }}.zip
+        asset_name: ${{ env.APP_NAME }}.zip
         asset_content_type: application/zip
       
