@@ -72,7 +72,6 @@ namespace ATB.DxfToNcConverter
 
             try
             {
-                throw new Exception();
                 systems.Init();
                 systems.Run();
             }
