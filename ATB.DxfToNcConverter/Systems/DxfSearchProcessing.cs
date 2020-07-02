@@ -15,9 +15,12 @@ namespace ATB.DxfToNcConverter.Systems
         public void Run()
         {
             logger.Info($"Searching DXF files...");
-            logger.Debug($"Search directory: '{configurationService.WorkingDirectory}.");
+
+            var directoryToSearchDxfFiles = configurationService.WorkingDirectory;
             
-            foreach (var dxfFullFilePath in fileSystemService.GetDxfFullFilePaths(configurationService.WorkingDirectory))
+            logger.Debug($"Search directory: '{directoryToSearchDxfFiles}.");
+            
+            foreach (var dxfFullFilePath in fileSystemService.GetDxfFullFilePaths(directoryToSearchDxfFiles))
             {
                 var dxfFullFilePathEntity = world.NewEntity();
                 ref var dfxFullFilePathComponent = ref dxfFullFilePathEntity.Get<DxfFileDefinition>();
