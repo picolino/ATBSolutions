@@ -28,6 +28,16 @@ namespace ATB.DxfToNcConverter
         {
             ConfigureLogging(debug, whatIf);
             var logger = LogManager.GetCurrentClassLogger();
+
+            if (debug)
+            {
+                logger.Info("Debug mode activated.");
+            }
+            
+            if (whatIf)
+            {
+                logger.Info("What-If mode activated.");
+            }
             
             var world = new EcsWorld();
             var systems = new EcsSystems(world);
@@ -45,12 +55,18 @@ namespace ATB.DxfToNcConverter
                    .Add(new DxfValidationProcessing())
                    .Add(new DxfParseProcessing())
                    .Add(new NcBuildProcessing())
-                   .Add(new NcSaveProcessing())
+                   .Add(new NcSaveProcessing(), nameof(NcSaveProcessing))
                    
                    .Inject(configurationService)
                    .Inject(fileSystemService)
                    .Inject(dxfService);
-            
+
+            if (whatIf)
+            {
+                var idx = systems.GetNamedRunSystem(nameof(NcSaveProcessing));
+                systems.SetRunSystemState(idx, false);
+            }
+
             try
             {
                 logger.Info("DxfToNcConverter started...");
