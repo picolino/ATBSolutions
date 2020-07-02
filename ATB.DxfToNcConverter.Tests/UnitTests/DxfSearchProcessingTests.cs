@@ -7,7 +7,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
 {
     public class DxfSearchProcessingTests : SystemTestBase<DxfSearchProcessing>
     {
-        protected override void SetupWorld(EcsWorld world)
+        protected override void SetupFilters(EcsWorld world)
         {
             dxfFileDefinitionFilter = world.GetFilter<EcsFilter<DxfFileDefinition>>();
         }

@@ -9,14 +9,11 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
 {
     public class DxfValidationProcessingTests : SystemTestBase<DxfValidationProcessing>
     {
-        protected override void SetupWorld(EcsWorld world)
+        protected override void SetupFilters(EcsWorld world)
         {
-            this.world = world;
-
             dxfFileContentFilter = world.GetFilter<EcsFilter<DxfFileContent>>();
         }
         
-        private EcsWorld world;
         private EcsFilter<DxfFileContent> dxfFileContentFilter;
 
         [Test]
@@ -30,7 +27,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             {
                 document.AddEntity(new Circle());
             }
-            var entity = world.NewEntity();
+            var entity = World.NewEntity();
             entity.Get<DxfFileContent>().dfxDocument = document;
             
             System.Run();
@@ -46,7 +43,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             var document = new DxfDocument();
             document.AddEntity(new Circle());
             document.AddEntity(new LwPolyline(new []{new LwPolylineVertex(), new LwPolylineVertex()}, isClosed));
-            var entity = world.NewEntity();
+            var entity = World.NewEntity();
             entity.Get<DxfFileContent>().dfxDocument = document;
             
             System.Run();
@@ -67,7 +64,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
                 polyline.Vertexes.Add(new LwPolylineVertex(200, 300));
             }
             document.AddEntity(polyline);
-            var entity = world.NewEntity();
+            var entity = World.NewEntity();
             entity.Get<DxfFileContent>().dfxDocument = document;
             
             System.Run();

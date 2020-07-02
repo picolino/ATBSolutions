@@ -8,21 +8,19 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
 {
     public class DxfLoadProcessingTests : SystemTestBase<DxfLoadProcessing>
     {
-        protected override void SetupWorld(EcsWorld world)
+        protected override void SetupFilters(EcsWorld world)
         {
-            this.world = world;
             dxfFileContentFilter = world.GetFilter<EcsFilter<DxfFileContent>>();
         }
 
-        private EcsWorld world;
         private EcsFilter<DxfFileContent> dxfFileContentFilter;
 
         [Test]
         public void DxfFileContentComponentAreCreated()
         {
-            var file1Entity = world.NewEntity();
+            var file1Entity = World.NewEntity();
             file1Entity.Get<DxfFileDefinition>().path = "C:\\tmp\\file1.dxf";
-            var file2Entity = world.NewEntity();
+            var file2Entity = World.NewEntity();
             file2Entity.Get<DxfFileDefinition>().path = "C:\\tmp\\file2.dxf";
             var documents = new[] {new DxfDocument(), new DxfDocument()};
             DxfServiceStub.DxfDocuments.Add("C:\\tmp\\file1.dxf", documents[0]);

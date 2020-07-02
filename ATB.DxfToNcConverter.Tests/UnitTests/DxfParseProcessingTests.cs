@@ -9,13 +9,10 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
 {
     public class DxfParseProcessingTests : SystemTestBase<DxfParseProcessing>
     {
-        private EcsWorld world;
         private EcsFilter<NcParameters> ncParametersFilter;
-        
-        protected override void SetupWorld(EcsWorld world)
-        {
-            this.world = world;
 
+        protected override void SetupFilters(EcsWorld world)
+        {
             ncParametersFilter = world.GetFilter<EcsFilter<NcParameters>>();
         }
 
@@ -26,7 +23,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         {
             for (var i = 0; i < entitiesCount; i++)
             {
-                world.NewEntity().Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+                World.NewEntity().Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
             }
             
             System.Run();
@@ -38,7 +35,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         public void EndPointMustBeEqualToEndPointFromConfigurationService()
         {
             ConfigurationServiceStub.EndPoint = new Vector2(230, 123);
-            world.NewEntity().Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+            World.NewEntity().Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
             
             System.Run();
             
@@ -51,7 +48,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         {
             var document = CreateCorrectPlainDxfDocument();
             document.Circles.First().Radius = 412;
-            world.NewEntity().Get<DxfFileContent>().dfxDocument = document;
+            World.NewEntity().Get<DxfFileContent>().dfxDocument = document;
             
             System.Run();
             
@@ -62,7 +59,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         [Test]
         public void CountOfDrillVertexesMustBeEqualToPolylineVertexes()
         {
-            world.NewEntity().Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+            World.NewEntity().Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
             
             System.Run();
             
