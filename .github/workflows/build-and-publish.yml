@@ -44,6 +44,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: windows-latest
+    needs: [build_and_publish]
     steps:
             
     - name: Get latest release
