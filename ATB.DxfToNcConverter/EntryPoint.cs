@@ -20,7 +20,14 @@ namespace ATB.DxfToNcConverter
                                   new Option<bool>(new[] {"-d", "--debug"}, "Debug mode. Provides additional logging information while running."),
                                   new Option<bool>(new[] {"-wi", "--what-if"}, "What-if mode. It provides additional logging information while running but not performs real converting.")
                               };
-            rootCommand.Description = "This application creates NC files from DXF files with corresponding file names.";
+
+            rootCommand.Description = "This application creates NC files from DXF files with corresponding file names." +
+                                      "\nEach polyline vertex in DXF file will be a drill point in creating NC program." +
+                                      "\n\nDXF files restrictions:" +
+                                      "\n\t- Must contain at least one circle element;" +
+                                      "\n\t- Must contain only closed polylines;" +
+                                      "\n\t- All polylines must be inside the biggest circle.";
+
             rootCommand.Handler = CommandHandler.Create<bool, bool>(Run);
             return rootCommand.Invoke(args);
         }

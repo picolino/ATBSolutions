@@ -33,14 +33,14 @@ namespace ATB.DxfToNcConverter.Systems
                     
                     if (circles.Length < 1)
                     {
-                        throw new NotEnoughCirclesException();
+                        throw new NotEnoughCirclesException(dxfFileDefinitionComponent.path);
                     }
 
                     var biggestCircle = circles.OrderByDescending(o => o.Radius).First();
 
                     if (polylines.Any(o => !o.IsClosed))
                     {
-                        throw new PolylineIsNotClosedException();
+                        throw new PolylineIsNotClosedException(dxfFileDefinitionComponent.path);
                     }
 
                     if (polylines.Any(o => o.Vertexes.Any(o1 => 
@@ -49,26 +49,14 @@ namespace ATB.DxfToNcConverter.Systems
                                                                                        biggestCircle.Radius, 
                                                                                        o1.Position))))
                     {
-                        throw new PolylineVertexIsOutsideOfTheBiggestCircleException();
+                        throw new PolylineVertexIsOutsideOfTheBiggestCircleException(dxfFileDefinitionComponent.path);
                     }
                     
                     logger.Debug($"DXF file {dxfFileDefinitionComponent.path} is valid.");
                 }
                 catch (Exception e)
                 {
-                    switch (e)
-                    {
-                        case NotEnoughCirclesException _:
-                            logger.Error($"DXF file '{dxfFileDefinitionComponent}' must contain at least one circle element.");
-                            break;
-                        case PolylineIsNotClosedException _:
-                            logger.Error($"All polylines in DXF file '{dxfFileDefinitionComponent}' must be closed.");
-                            break;
-                        case PolylineVertexIsOutsideOfTheBiggestCircleException _:
-                            logger.Error($"All polylines in DXF file '{dxfFileDefinitionComponent}' must be placed inside the biggest circle.");
-                            break;
-                    }
-                    
+                    logger.Error(e);
                     dxfFileContentEntity.Destroy();
                 }
             }

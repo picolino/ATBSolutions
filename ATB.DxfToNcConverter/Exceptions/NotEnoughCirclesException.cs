@@ -2,7 +2,10 @@
 
 namespace ATB.DxfToNcConverter.Exceptions
 {
-    public class NotEnoughCirclesException : Exception
+    public class NotEnoughCirclesException : DxfParseExceptionBase
     {
+        public NotEnoughCirclesException(string dxfFilePath) : base($"DXF file '{dxfFilePath}' must contain at least one circle element.")
+        {
+        }
     }
 }
