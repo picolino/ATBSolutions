@@ -23,7 +23,9 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         {
             for (var i = 0; i < entitiesCount; i++)
             {
-                World.NewEntity().Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+                var entity = World.NewEntity();
+                entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+                entity.Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
             }
             
             System.Run();
@@ -35,7 +37,9 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         public void EndPointMustBeEqualToEndPointFromConfigurationService()
         {
             ConfigurationServiceStub.EndPoint = new Vector2(230, 123);
-            World.NewEntity().Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+            var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+            entity.Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
             
             System.Run();
             
@@ -48,7 +52,9 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         {
             var document = CreateCorrectPlainDxfDocument();
             document.Circles.First().Radius = 412;
-            World.NewEntity().Get<DxfFileContent>().dfxDocument = document;
+            var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+            entity.Get<DxfFileContent>().dfxDocument = document;
             
             System.Run();
             
@@ -59,7 +65,9 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         [Test]
         public void CountOfDrillVertexesMustBeEqualToPolylineVertexes()
         {
-            World.NewEntity().Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+            var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+            entity.Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
             
             System.Run();
             

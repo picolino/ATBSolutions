@@ -13,35 +13,52 @@ namespace ATB.DxfToNcConverter.Systems
     {
         private readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private readonly IConfigurationService configurationService = null;
-        private readonly EcsFilter<DxfFileContent> dxfFileContentFilter = null;
+        private readonly EcsFilter<DxfFileDefinition, DxfFileContent> dxfFileContentFilter = null;
         
         public void Run()
         {
+            logger.Info("Parsing DXF files...");
+            
             foreach (var dxfFileContentEntityId in dxfFileContentFilter)
             {
-                ref var dxfFileContentComponent = ref dxfFileContentFilter.Get1(dxfFileContentEntityId);
+                ref var dxfFileDefinitionComponent = ref dxfFileContentFilter.Get1(dxfFileContentEntityId);
+                ref var dxfFileContentComponent = ref dxfFileContentFilter.Get2(dxfFileContentEntityId);
                 ref var dxfFileContentEntity = ref dxfFileContentFilter.GetEntity(dxfFileContentEntityId);
+                
+                logger.Debug($"Parsing DXF file: '{dxfFileDefinitionComponent.path}'...");
+                
                 var dxfDocument = dxfFileContentComponent.dfxDocument;
 
                 var biggestCircle = dxfDocument.Circles.OrderByDescending(o => o.Radius).First();
-
+                
                 var biggestCircleRadius = biggestCircle.Radius;
                 var biggestCircleCenter2d = new Vector2(biggestCircle.Center.X, biggestCircle.Center.Y);
+                
+                logger.Debug($"Biggest circle: Handle: '{biggestCircle.Handle}' Center: '{biggestCircleCenter2d}', Radius: '{biggestCircleRadius}'.");
 
                 ref var ncParametersComponent = ref dxfFileContentEntity.Get<NcParameters>();
-                ncParametersComponent.endPointX = configurationService.EndPoint.X;
-                ncParametersComponent.endPointY = configurationService.EndPoint.Y;
 
                 ncParametersComponent.startPointX = biggestCircleRadius;
                 ncParametersComponent.startPointY = 0;
+                
+                logger.Debug($"Start point: X: '{ncParametersComponent.startPointX}', Y: '{ncParametersComponent.startPointY}'.");
+                
+                ncParametersComponent.endPointX = configurationService.EndPoint.X;
+                ncParametersComponent.endPointY = configurationService.EndPoint.Y;
+                
+                logger.Debug($"End point: X: '{ncParametersComponent.endPointX}', Y: '{ncParametersComponent.endPointY}'.");
                 
                 var drillParameters = new List<NcDrillVertexParameters>();
 
                 var offsetXAccumulator = 0d;
                 var previousVertexVector = Vector2.UnitY;
+                
+                logger.Debug($"Parsing polylines...");
 
                 foreach (var polyline in dxfDocument.LwPolylines)
                 {
+                    logger.Debug($"Parsing polyline: Handle: '{polyline.Handle}'.");
+                    
                     foreach (var vertex in polyline.Vertexes)
                     {
                         var circleCenterToVertexPositionVector = vertex.Position - biggestCircleCenter2d;
@@ -54,17 +71,23 @@ namespace ATB.DxfToNcConverter.Systems
                         var offsetY = RoundDefault(angle);
                         
                         offsetXAccumulator += offsetX;
+
+                        var drillVertex = new NcDrillVertexParameters
+                                          {
+                                              offsetX = offsetX,
+                                              offsetY = offsetY,
+                                              drillTime = configurationService.HoleDrillTime
+                                          };
                         
-                        drillParameters.Add(new NcDrillVertexParameters
-                                            {
-                                                offsetX = offsetX,
-                                                offsetY = offsetY, 
-                                                drillTime = configurationService.HoleDrillTime
-                                            });
+                        logger.Debug($"Drill vertex: X offset: '{drillVertex.offsetX}', Y offset: '{drillVertex.offsetY}', Drill time: '{drillVertex.drillTime}';");
+                        
+                        drillParameters.Add(drillVertex);
                     }
                 }
                 
                 ncParametersComponent.drillParameters = drillParameters;
+                
+                logger.Debug($"Parsing DXF file '{dxfFileDefinitionComponent.path}' complete.");
             }
         }
 
