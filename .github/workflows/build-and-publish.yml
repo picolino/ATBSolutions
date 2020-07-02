@@ -9,6 +9,7 @@ env:
   APP_NAME: your-app-name              # set this to your application's name
   APP_PACKAGE_PATH: './published'      # set this to the path to your app project, defaults to the repository root
   NETCORE_VERSION: '3.1.101'           # set this to the .NET Core version to use
+  GITHUB_TOKEN: ${{ github.token }}    # set this to access token
 
 jobs:
   build_and_publish:
