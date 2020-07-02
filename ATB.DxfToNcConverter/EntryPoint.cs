@@ -6,6 +6,7 @@ using System.Numerics;
 using ATB.DxfToNcConverter.Services;
 using ATB.DxfToNcConverter.Systems;
 using Leopotam.Ecs;
+using NLog;
 
 namespace ATB.DxfToNcConverter
 {
@@ -25,6 +26,8 @@ namespace ATB.DxfToNcConverter
 
         private static void Run(bool debug, bool whatIf) // Argument names are important for arguments mapping
         {
+            ConfigureLogging(debug, whatIf);
+            
             var world = new EcsWorld();
             var systems = new EcsSystems(world);
             
@@ -62,6 +65,19 @@ namespace ATB.DxfToNcConverter
                 systems.Destroy();
                 world.Destroy();
             }
+        }
+
+        private static void ConfigureLogging(bool isDebug, bool isWhatIf)
+        {
+            var config = new NLog.Config.LoggingConfiguration();
+
+            var logInFileTarget = new NLog.Targets.FileTarget("logFileTarget") { FileName = "${baseDir}\\logs\\${longdate}.log" };
+            var logInConsoleTarget = new NLog.Targets.ConsoleTarget("logConsoleTarget");
+
+            config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Info, LogLevel.Fatal, logInConsoleTarget);
+            config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Info, LogLevel.Fatal, logInFileTarget);
+
+            LogManager.Configuration = config;
         }
     }
 }
