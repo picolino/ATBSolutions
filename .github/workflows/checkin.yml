@@ -23,10 +23,6 @@ jobs:
 
     - name: Build
       run: dotnet build --configuration Release --no-restore
-  test:
-    name: Test
-    needs: [build]
-    runs-on: windows-latest
-    steps:
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
+    
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
