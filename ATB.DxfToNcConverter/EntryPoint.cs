@@ -7,6 +7,7 @@ using ATB.DxfToNcConverter.Services;
 using ATB.DxfToNcConverter.Systems;
 using Leopotam.Ecs;
 using NLog;
+using NLog.Layouts;
 
 namespace ATB.DxfToNcConverter
 {
@@ -89,8 +90,13 @@ namespace ATB.DxfToNcConverter
         {
             var config = new NLog.Config.LoggingConfiguration();
 
+            var layout = new SimpleLayout("${longdate} [${level}] [${callsite}]: ${message}");
+
             var logInFileTarget = new NLog.Targets.FileTarget("logFileTarget") { FileName = "${baseDir}\\logs\\${shortdate}.log" };
             var logInConsoleTarget = new NLog.Targets.ConsoleTarget("logConsoleTarget");
+
+            logInFileTarget.Layout = layout;
+            logInConsoleTarget.Layout = layout;
 
             config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Info, LogLevel.Fatal, logInConsoleTarget);
             config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Info, LogLevel.Fatal, logInFileTarget);
