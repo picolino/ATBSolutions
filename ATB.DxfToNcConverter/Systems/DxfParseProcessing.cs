@@ -79,7 +79,7 @@ namespace ATB.DxfToNcConverter.Systems
                                               drillTime = configurationService.HoleDrillTime
                                           };
                         
-                        logger.Debug($"Drill vertex: X offset: '{drillVertex.offsetX}', Y offset: '{drillVertex.offsetY}', Drill time: '{drillVertex.drillTime}';");
+                        logger.Debug($"Drill vertex: X offset: '{drillVertex.offsetX}', Y offset: '{drillVertex.offsetY}', Drill time: '{drillVertex.drillTime}'.");
                         
                         drillParameters.Add(drillVertex);
                     }
