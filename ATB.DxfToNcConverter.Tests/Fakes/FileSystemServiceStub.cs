@@ -2,7 +2,7 @@
 using System.Linq;
 using ATB.DxfToNcConverter.Services;
 
-namespace ABT.DxfToNcConverter.Tests.Fakes
+namespace ATB.DxfToNcConverter.Tests.Fakes
 {
     public class FileSystemServiceStub : IFileSystemService
     {

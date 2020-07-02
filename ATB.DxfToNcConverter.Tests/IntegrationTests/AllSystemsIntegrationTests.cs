@@ -5,7 +5,7 @@ using netDxf;
 using netDxf.Entities;
 using NUnit.Framework;
 
-namespace ABT.DxfToNcConverter.Tests.IntegrationTests
+namespace ATB.DxfToNcConverter.Tests.IntegrationTests
 {
     public class AllSystemsIntegrationTests : TestBase
     {

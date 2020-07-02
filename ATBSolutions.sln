@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATB.DxfToNcConverter", "ATB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeoECS", "LeoECS\LeoECS.csproj", "{FBD3C685-964E-4C37-B4DA-C1357992E6EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ABT.DxfToNcConverter.Tests", "ABT.DxfToNcConverter.Tests\ABT.DxfToNcConverter.Tests.csproj", "{6FA89D5C-7392-4A83-A45E-B03442A7AA36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATB.DxfToNcConverter.Tests", "ATB.DxfToNcConverter.Tests\ATB.DxfToNcConverter.Tests.csproj", "{6FA89D5C-7392-4A83-A45E-B03442A7AA36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

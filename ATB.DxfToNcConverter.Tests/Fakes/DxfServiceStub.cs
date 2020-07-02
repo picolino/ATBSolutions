@@ -2,7 +2,7 @@
 using ATB.DxfToNcConverter.Services;
 using netDxf;
 
-namespace ABT.DxfToNcConverter.Tests.Fakes
+namespace ATB.DxfToNcConverter.Tests.Fakes
 {
     public class DxfServiceStub : IDxfService
     {
