@@ -4,11 +4,13 @@ using System.Text;
 using System.Threading;
 using ATB.DxfToNcConverter.Components;
 using Leopotam.Ecs;
+using NLog;
 
 namespace ATB.DxfToNcConverter.Systems
 {
     public class NcBuildProcessing : IEcsRunSystem
     {
+        private readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private readonly EcsFilter<NcParameters> ncParametersFilter = null;
         
         public void Run()

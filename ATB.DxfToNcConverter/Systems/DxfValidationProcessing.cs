@@ -4,22 +4,28 @@ using ATB.DxfToNcConverter.Components;
 using ATB.DxfToNcConverter.Exceptions;
 using Leopotam.Ecs;
 using netDxf;
+using NLog;
 
 namespace ATB.DxfToNcConverter.Systems
 {
     public class DxfValidationProcessing : IEcsRunSystem
     {
-        private readonly EcsFilter<DxfFileContent> dxfFileContentFilter = null;
+        private readonly ILogger logger = LogManager.GetCurrentClassLogger();
+        private readonly EcsFilter<DxfFileDefinition, DxfFileContent> dxfFileContentFilter = null;
         
         public void Run()
         {
+            logger.Info($"Validating DXF files...");
+            
             foreach (var dxfFileContentEntityId in dxfFileContentFilter)
             {
                 ref var dxfFileContentEntity = ref dxfFileContentFilter.GetEntity(dxfFileContentEntityId);
+                ref var dxfFileDefinitionComponent = ref dxfFileContentFilter.Get1(dxfFileContentEntityId);
                 
                 try
                 {
-                    ref var dxfFileContentComponent = ref dxfFileContentFilter.Get1(dxfFileContentEntityId);
+                    ref var dxfFileContentComponent = ref dxfFileContentFilter.Get2(dxfFileContentEntityId);
+                    
                     var dxfDocument = dxfFileContentComponent.dfxDocument;
 
                     var circles = dxfDocument.Circles.ToArray();
@@ -45,19 +51,21 @@ namespace ATB.DxfToNcConverter.Systems
                     {
                         throw new PolylineVertexIsOutsideOfTheBiggestCircleException();
                     }
+                    
+                    logger.Debug($"DXF file {dxfFileDefinitionComponent.path} is valid.");
                 }
                 catch (Exception e)
                 {
                     switch (e)
                     {
                         case NotEnoughCirclesException _:
-                            // TODO: Write in log
+                            logger.Error($"DXF file '{dxfFileDefinitionComponent}' must contain at least one circle element.");
                             break;
                         case PolylineIsNotClosedException _:
-                            // TODO: Write in log
+                            logger.Error($"All polylines in DXF file '{dxfFileDefinitionComponent}' must be closed.");
                             break;
                         case PolylineVertexIsOutsideOfTheBiggestCircleException _:
-                            // TODO: Write in log
+                            logger.Error($"All polylines in DXF file '{dxfFileDefinitionComponent}' must be placed inside the biggest circle.");
                             break;
                     }
                     

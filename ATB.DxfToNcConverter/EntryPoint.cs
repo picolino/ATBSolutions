@@ -27,6 +27,7 @@ namespace ATB.DxfToNcConverter
         private static void Run(bool debug, bool whatIf) // Argument names are important for arguments mapping
         {
             ConfigureLogging(debug, whatIf);
+            var logger = LogManager.GetCurrentClassLogger();
             
             var world = new EcsWorld();
             var systems = new EcsSystems(world);
@@ -57,8 +58,7 @@ namespace ATB.DxfToNcConverter
             }
             catch (Exception e)
             {
-                // TODO: Log error
-                throw;
+                logger.Fatal(e);
             }
             finally
             {

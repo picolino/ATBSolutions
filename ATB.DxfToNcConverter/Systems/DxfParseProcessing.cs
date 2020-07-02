@@ -5,11 +5,13 @@ using ATB.DxfToNcConverter.Components;
 using ATB.DxfToNcConverter.Services;
 using Leopotam.Ecs;
 using netDxf;
+using NLog;
 
 namespace ATB.DxfToNcConverter.Systems
 {
     public class DxfParseProcessing : IEcsRunSystem
     {
+        private readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private readonly IConfigurationService configurationService = null;
         private readonly EcsFilter<DxfFileContent> dxfFileContentFilter = null;
         

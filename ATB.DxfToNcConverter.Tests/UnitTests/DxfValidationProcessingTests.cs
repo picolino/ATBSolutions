@@ -28,6 +28,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
                 document.AddEntity(new Circle());
             }
             var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
             entity.Get<DxfFileContent>().dfxDocument = document;
             
             System.Run();
@@ -44,6 +45,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             document.AddEntity(new Circle());
             document.AddEntity(new LwPolyline(new []{new LwPolylineVertex(), new LwPolylineVertex()}, isClosed));
             var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
             entity.Get<DxfFileContent>().dfxDocument = document;
             
             System.Run();
@@ -65,6 +67,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             }
             document.AddEntity(polyline);
             var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
             entity.Get<DxfFileContent>().dfxDocument = document;
             
             System.Run();
