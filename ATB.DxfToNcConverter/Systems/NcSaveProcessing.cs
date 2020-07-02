@@ -27,7 +27,7 @@ namespace ATB.DxfToNcConverter.Systems
                 
                 fileSystemService.SaveFileWithContent(fileFullPath, ncProgramComponent.programText);
                 
-                logger.Debug($"NC file {fileFullPath} saved.");
+                logger.Debug($"NC file '{fileFullPath}' saved.");
             }
         }
     }
