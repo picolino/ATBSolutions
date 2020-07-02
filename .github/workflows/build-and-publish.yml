@@ -34,7 +34,7 @@ jobs:
       run: dotnet test --no-restore --verbosity normal
     
     - name: Publish app for deploy
-      run: dotnet publish ./ATB.DxfToNcConverter/ATB.DxfToNcConverter.csproj --configuration Release --no-build --output ${{ env.APP_PACKAGE_PATH }} /p:PublishSingleFile=true
+      run: dotnet publish ./ATB.DxfToNcConverter/ATB.DxfToNcConverter.csproj --configuration Release --no-build --output ${{ env.APP_PACKAGE_PATH }} /p:PublishSingleFile=true /p:CopyOutputSymbolsToPublishDirectory=false
       
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
