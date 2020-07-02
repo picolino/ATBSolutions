@@ -39,27 +39,6 @@ namespace ABT.DxfToNcConverter.Tests.UnitTests
         }
 
         [Test]
-        [TestCase(2, false, ExpectedResult = 0)]
-        [TestCase(2, true, ExpectedResult = 1)]
-        [TestCase(3, false, ExpectedResult = 0)]
-        [TestCase(3, true, ExpectedResult = 1)]
-        public int IfCenterOfAllCirclesIsNotTheSameThenEntityMustBeDeleted(int circlesCount, bool centerIsTheSame)
-        {
-            var document = new DxfDocument();
-            for (var i = 0; i < circlesCount; i++)
-            {
-                var coords = centerIsTheSame ? 1 : i;
-                document.AddEntity(new Circle(new Vector2(coords, coords), 10));
-            }
-            var entity = world.NewEntity();
-            entity.Get<DxfFileContent>().dfxDocument = document;
-            
-            System.Run();
-
-            return dxfFileContentFilter.GetEntitiesCount();
-        }
-
-        [Test]
         [TestCase(true, ExpectedResult = 1)]
         [TestCase(false, ExpectedResult = 0)]
         public int IfAnyPolylineIsNotClosedThenEntityMustBeDeleted(bool isClosed)

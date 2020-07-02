@@ -32,12 +32,6 @@ namespace ATB.DxfToNcConverter.Systems
 
                     var biggestCircle = circles.OrderByDescending(o => o.Radius).First();
 
-                    var centerPoint = circles[0].Center;
-                    if (circles.Any(o => o.Center != centerPoint))
-                    {
-                        throw new CenterOfCirclesIsNotTheSameException();
-                    }
-
                     if (polylines.Any(o => !o.IsClosed))
                     {
                         throw new PolylineIsNotClosedException();
@@ -57,9 +51,6 @@ namespace ATB.DxfToNcConverter.Systems
                     switch (e)
                     {
                         case NotEnoughCirclesException _:
-                            // TODO: Write in log
-                            break;
-                        case CenterOfCirclesIsNotTheSameException _:
                             // TODO: Write in log
                             break;
                         case PolylineIsNotClosedException _:
