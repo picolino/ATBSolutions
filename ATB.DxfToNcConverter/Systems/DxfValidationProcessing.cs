@@ -65,6 +65,9 @@ namespace ATB.DxfToNcConverter.Systems
                         case PolylineIsNotClosedException _:
                             // TODO: Write in log
                             break;
+                        case PolylineVertexIsOutsideOfTheBiggestCircleException _:
+                            // TODO: Write in log
+                            break;
                     }
                     
                     dxfFileContentEntity.Destroy();
