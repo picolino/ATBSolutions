@@ -1,0 +1,43 @@
+name: .NET Core
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  APP_NAME: your-app-name              # set this to your application's name
+  APP_PACKAGE_PATH: './published'      # set this to the path to your app project, defaults to the repository root
+  NETCORE_VERSION: '3.1.101'           # set this to the .NET Core version to use
+
+jobs:
+  build_and_publish:
+    name: Build and Publish
+    
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Setup .NET Core ${{ env.NETCORE_VERSION }}
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.NETCORE_VERSION }}
+
+    - name: Install dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+    
+    - name: Publish app for deploy
+      run: dotnet publish --configuration Release --no-build --output ${{ env.APP_PACKAGE_PATH }} /p:PublishSingleFile=true
+      
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: application
+        path: ${{ env.APP_PACKAGE_PATH }} 
