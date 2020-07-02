@@ -66,8 +66,28 @@ namespace ABT.DxfToNcConverter.Tests.UnitTests
         {
             var document = new DxfDocument();
             document.AddEntity(new Circle());
-            document.AddEntity(new Circle());
             document.AddEntity(new LwPolyline(new []{new LwPolylineVertex(), new LwPolylineVertex()}, isClosed));
+            var entity = world.NewEntity();
+            entity.Get<DxfFileContent>().dfxDocument = document;
+            
+            System.Run();
+
+            return dxfFileContentFilter.GetEntitiesCount();
+        }
+
+        [Test]
+        [TestCase(true, ExpectedResult = 0)]
+        [TestCase(false, ExpectedResult = 1)]
+        public int IfAnyPolylineVertexIsOutsideTheBiggestCircleThenEntityMustBeDeleted(bool hasPolylineVertexOutsideTheBiggestCircle)
+        {
+            var document = new DxfDocument();
+            document.AddEntity(new Circle(new Vector2(0, 0), 100));
+            var polyline = new LwPolyline(new[] {new LwPolylineVertex(10, 10), new LwPolylineVertex(20, 20)}, true);
+            if (hasPolylineVertexOutsideTheBiggestCircle)
+            {
+                polyline.Vertexes.Add(new LwPolylineVertex(200, 300));
+            }
+            document.AddEntity(polyline);
             var entity = world.NewEntity();
             entity.Get<DxfFileContent>().dfxDocument = document;
             
