@@ -53,6 +53,7 @@ namespace ATB.DxfToNcConverter
             
             try
             {
+                logger.Info("DxfToNcConverter started...");
                 systems.Init();
                 systems.Run();
             }
@@ -64,6 +65,7 @@ namespace ATB.DxfToNcConverter
             {
                 systems.Destroy();
                 world.Destroy();
+                logger.Info("DxfToNcConverter closed.");
             }
         }
 
@@ -71,7 +73,7 @@ namespace ATB.DxfToNcConverter
         {
             var config = new NLog.Config.LoggingConfiguration();
 
-            var logInFileTarget = new NLog.Targets.FileTarget("logFileTarget") { FileName = "${baseDir}\\logs\\${longdate}.log" };
+            var logInFileTarget = new NLog.Targets.FileTarget("logFileTarget") { FileName = "${baseDir}\\logs\\${shortdate}.log" };
             var logInConsoleTarget = new NLog.Targets.ConsoleTarget("logConsoleTarget");
 
             config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Info, LogLevel.Fatal, logInConsoleTarget);
