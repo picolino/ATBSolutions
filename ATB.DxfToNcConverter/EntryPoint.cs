@@ -122,7 +122,7 @@ namespace ATB.DxfToNcConverter
                                   };
 
             config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Info, LogLevel.Fatal, logInConsoleTarget);
-            config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Off, LogLevel.Fatal, logInFileTarget);
+            config.AddRule(isDebug ? LogLevel.Trace : LogLevel.Off, LogLevel.Fatal, logInFileTarget);
 
             LogManager.Configuration = config;
         }
