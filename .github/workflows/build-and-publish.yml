@@ -38,7 +38,7 @@ jobs:
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: ABT.DxfToNcConverter
+        name: ${{ env.APP_NAME }}
         path: ${{ env.APP_PACKAGE_PATH }} 
 
   deploy:
