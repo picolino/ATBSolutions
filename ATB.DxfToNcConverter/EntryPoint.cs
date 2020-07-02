@@ -10,7 +10,7 @@ using NLog;
 
 namespace ATB.DxfToNcConverter
 {
-    static class EntryPoint
+    internal static class EntryPoint
     {
         static int Main(string[] args)
         {
