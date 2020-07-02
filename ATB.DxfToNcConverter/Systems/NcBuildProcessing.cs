@@ -15,6 +15,8 @@ namespace ATB.DxfToNcConverter.Systems
         
         public void Run()
         {
+            logger.Info("Building NC programs...");
+            
             foreach (var ncParametersEntityId in ncParametersFilter)
             {
                 ref var ncParametersEntity = ref ncParametersFilter.GetEntity(ncParametersEntityId);

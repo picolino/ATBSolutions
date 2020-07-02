@@ -15,14 +15,19 @@ namespace ATB.DxfToNcConverter.Systems
         
         public void Run()
         {
+            logger.Info("Saving NC programs...");
+            
             foreach (var idx in filter)
             {
                 ref var dfxFileDefinitionComponent = ref filter.Get1(idx);
                 ref var ncProgramComponent = ref filter.Get2(idx);
 
                 var fileName = Path.GetFileNameWithoutExtension(dfxFileDefinitionComponent.path) + ".nc";
+                var fileFullPath = Path.Combine(configurationService.WorkingDirectory, fileName);
                 
-                fileSystemService.SaveFileWithContent(Path.Combine(configurationService.WorkingDirectory, fileName), ncProgramComponent.programText);
+                fileSystemService.SaveFileWithContent(fileFullPath, ncProgramComponent.programText);
+                
+                logger.Debug($"NC file {fileFullPath} saved.");
             }
         }
     }
