@@ -55,7 +55,7 @@ namespace ATB.DxfToNcConverter
 
             var errorRaised = false;
 
-            systems.Add(new DxfSearchProcessing())
+            systems.Add(new DxfSearchProcessing(() => errorRaised = true))
                    .Add(new DxfLoadProcessing())
                    .Add(new DxfValidationProcessing(e => errorRaised = true))
                    .Add(new DxfParseProcessing())
