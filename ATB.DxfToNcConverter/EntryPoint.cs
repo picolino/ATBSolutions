@@ -41,6 +41,11 @@ namespace ATB.DxfToNcConverter
             var logger = LogManager.GetCurrentClassLogger();
             
             logger.Info("DxfToNcConverter started...");
+
+            if (debug)
+            {
+                logger.Info("Debug mode activated.");
+            }
             
             var world = new EcsWorld();
             var systems = new EcsSystems(world);
@@ -65,11 +70,6 @@ namespace ATB.DxfToNcConverter
                    .Inject(configurationService)
                    .Inject(fileSystemService)
                    .Inject(dxfService);
-
-            if (debug)
-            {
-                logger.Info("Debug mode activated.");
-            }
 
             if (whatIf)
             {
