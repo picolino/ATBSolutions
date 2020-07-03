@@ -36,7 +36,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         [Test]
         public void EndPointMustBeEqualToEndPointFromConfigurationService()
         {
-            ConfigurationServiceStub.EndPoint = new Vector2(230, 123);
+            ConfigurationServiceStub.EndPoint = new netDxf.Vector2(230, 123);
             var entity = World.NewEntity();
             entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
             entity.Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();

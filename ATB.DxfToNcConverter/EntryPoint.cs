@@ -18,7 +18,10 @@ namespace ATB.DxfToNcConverter
             var rootCommand = new RootCommand
                               {
                                   new Option<bool>(new[] {"-d", "--debug"}, "Debug mode. Provides additional logging information while running."),
-                                  new Option<bool>(new[] {"-wi", "--what-if"}, "What-if mode. It provides additional logging information while running but not performs real converting.")
+                                  new Option<bool>(new[] {"-wi", "--what-if"}, "What-if mode. It provides additional logging information while running but not performs real converting."),
+                                  new Argument<string>("directory", Directory.GetCurrentDirectory, "Working directory."),
+                                  new Option<double>(new [] {"-hdt", "--hole-drill-time"}, () => 1.5, "Drill down moving time in seconds."),
+                                  new Option<double>(new [] {"-epx", "--end-position-x"}, () => 300, "X position at the end of program execution.")
                               };
 
             rootCommand.Description = "This application creates NC files from DXF files with corresponding file names." +
@@ -28,11 +31,11 @@ namespace ATB.DxfToNcConverter
                                       "\n\t- Must contain only closed polylines;" +
                                       "\n\t- All polylines must be inside the biggest circle.";
 
-            rootCommand.Handler = CommandHandler.Create<bool, bool>(Run);
+            rootCommand.Handler = CommandHandler.Create<bool, bool, string, double, double>(Run);
             return rootCommand.Invoke(args);
         }
 
-        private static void Run(bool debug, bool whatIf) // Argument names are important for arguments mapping
+        private static void Run(bool debug, bool whatIf, string directory, double holeDrillTime, double endPositionX) // Argument names are important for arguments mapping
         {
             ConfigureLogging(debug, whatIf);
             var logger = LogManager.GetCurrentClassLogger();
@@ -54,9 +57,9 @@ namespace ATB.DxfToNcConverter
             
             var configurationService = new ConfigurationService(debug, 
                                                                 whatIf, 
-                                                                Directory.GetCurrentDirectory(), 
-                                                                new Vector2(260, 0), 
-                                                                1.5); // TODO: Move all hardcode values to args
+                                                                directory, 
+                                                                new netDxf.Vector2(endPositionX, 0), 
+                                                                holeDrillTime);
             var fileSystemService = new FileSystemService();
             var dxfService = new DxfService();
 
