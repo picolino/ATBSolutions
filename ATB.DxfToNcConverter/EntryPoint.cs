@@ -109,17 +109,15 @@ namespace ATB.DxfToNcConverter
         {
             var config = new NLog.Config.LoggingConfiguration();
 
-            var layout = new SimpleLayout("${longdate} [${level}] [${callsite}]: ${message}");
-
             var logInConsoleTarget = new NLog.Targets.ColoredConsoleTarget("logConsoleTarget")
                                      {
-                                         Layout = layout
+                                         Layout = new SimpleLayout("${message}")
                                      };
             
             var logInFileTarget = new NLog.Targets.FileTarget("logFileTarget")
                                   {
                                       FileName = "${baseDir}\\logs\\${shortdate}.log", 
-                                      Layout = layout
+                                      Layout = new SimpleLayout("${longdate} [${level}] [${callsite}]: ${message}")
                                   };
 
             config.AddRule(isDebug || isWhatIf ? LogLevel.Trace : LogLevel.Info, LogLevel.Fatal, logInConsoleTarget);
