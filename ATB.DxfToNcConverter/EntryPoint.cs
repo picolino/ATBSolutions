@@ -53,11 +53,11 @@ namespace ATB.DxfToNcConverter
             var fileSystemService = new FileSystemService();
             var dxfService = new DxfService();
 
-            var errorRaised = false;
+            var consoleStayOpenForce = false;
 
-            systems.Add(new DxfSearchProcessing(() => errorRaised = true))
+            systems.Add(new DxfSearchProcessing(() => consoleStayOpenForce = true))
                    .Add(new DxfLoadProcessing())
-                   .Add(new DxfValidationProcessing(e => errorRaised = true))
+                   .Add(new DxfValidationProcessing(e => consoleStayOpenForce = true))
                    .Add(new DxfParseProcessing())
                    .Add(new NcBuildProcessing())
                    .Add(new NcSaveProcessing(), nameof(NcSaveProcessing))
@@ -86,7 +86,7 @@ namespace ATB.DxfToNcConverter
             }
             catch (Exception e)
             {
-                errorRaised = true;
+                consoleStayOpenForce = true;
                 logger.Fatal(e);
                 throw;
             }
@@ -97,7 +97,7 @@ namespace ATB.DxfToNcConverter
                 
                 logger.Info("DxfToNcConverter finished.");
 
-                if (errorRaised || debug || whatIf)
+                if (consoleStayOpenForce || debug || whatIf)
                 {
                     Console.WriteLine("Press any button to exit...");
                     Console.Read();
