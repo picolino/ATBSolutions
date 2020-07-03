@@ -10,8 +10,18 @@ namespace ATB.DxfToNcConverter.Systems
 {
     public class DxfValidationProcessing : IEcsRunSystem
     {
+        private readonly Action<Exception> onFileNotValidAction;
         private readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private readonly EcsFilter<DxfFileDefinition, DxfFileContent> dxfFileContentFilter = null;
+
+        public DxfValidationProcessing() : this(null)
+        {
+        }
+        
+        public DxfValidationProcessing(Action<Exception> onFileNotValidAction)
+        {
+            this.onFileNotValidAction = onFileNotValidAction;
+        }
         
         public void Run()
         {
@@ -57,6 +67,7 @@ namespace ATB.DxfToNcConverter.Systems
                 catch (Exception e)
                 {
                     logger.Error(e);
+                    onFileNotValidAction?.Invoke(e);
                     dxfFileContentEntity.Destroy();
                 }
             }
