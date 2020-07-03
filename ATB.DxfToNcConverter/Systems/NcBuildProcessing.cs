@@ -21,7 +21,8 @@ namespace ATB.DxfToNcConverter.Systems
             {
                 ref var ncParametersEntity = ref ncParametersFilter.GetEntity(ncParametersEntityId);
                 ref var ncParametersComponent = ref ncParametersFilter.Get1(ncParametersEntityId);
-                
+
+                var currentThreadCulture = Thread.CurrentThread.CurrentCulture;
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // For correction floating point separator
                 
                 var ncStringBuilder = new StringBuilder();
@@ -61,7 +62,7 @@ namespace ATB.DxfToNcConverter.Systems
                 ref var ncProgramComponent = ref ncParametersEntity.Get<NcProgram>();
                 ncProgramComponent.programText = ncStringBuilder.ToString();
                 
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CurrentCulture; // Reset culture
+                Thread.CurrentThread.CurrentCulture = currentThreadCulture; // Reset culture
             }
         }
     }
