@@ -15,6 +15,11 @@ namespace ATB.DxfToNcConverter.Systems
         
         public void Run()
         {
+            if (filter.IsEmpty())
+            {
+                return;
+            }
+            
             logger.Info("Saving NC programs...");
             
             foreach (var idx in filter)

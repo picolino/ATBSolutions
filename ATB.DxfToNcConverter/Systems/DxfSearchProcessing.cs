@@ -9,6 +9,7 @@ namespace ATB.DxfToNcConverter.Systems
     {
         private readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private readonly EcsWorld world = null;
+        private readonly EcsFilter<DxfFileDefinition> dxfFileDefinitionFilter = null;
         private readonly IFileSystemService fileSystemService = null;
         private readonly IConfigurationService configurationService = null;
         
@@ -27,6 +28,11 @@ namespace ATB.DxfToNcConverter.Systems
                 dfxFullFilePathComponent.path = dxfFullFilePath;
                 
                 logger.Debug($"Found DXF file: '{dxfFullFilePath}'.");
+            }
+
+            if (dxfFileDefinitionFilter.IsEmpty())
+            {
+                logger.Warn($"There are no *.dxf files in working directory.");
             }
         }
     }

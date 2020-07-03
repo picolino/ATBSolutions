@@ -14,6 +14,11 @@ namespace ATB.DxfToNcConverter.Systems
         
         public void Run()
         {
+            if (filter.IsEmpty())
+            {
+                return;
+            }
+            
             logger.Info($"Loading DXF files...");
             
             foreach (var dxfFullFilePathEntityId in filter)

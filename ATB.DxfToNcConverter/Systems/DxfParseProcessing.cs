@@ -17,6 +17,11 @@ namespace ATB.DxfToNcConverter.Systems
         
         public void Run()
         {
+            if (dxfFileContentFilter.IsEmpty())
+            {
+                return;
+            }
+            
             logger.Info("Parsing DXF files...");
             
             foreach (var dxfFileContentEntityId in dxfFileContentFilter)

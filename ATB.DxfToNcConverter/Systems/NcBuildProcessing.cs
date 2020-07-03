@@ -15,6 +15,11 @@ namespace ATB.DxfToNcConverter.Systems
         
         public void Run()
         {
+            if (ncParametersFilter.IsEmpty())
+            {
+                return;
+            }
+            
             logger.Info("Building NC programs...");
             
             foreach (var ncParametersEntityId in ncParametersFilter)
