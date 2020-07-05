@@ -77,11 +77,15 @@ namespace ATB.DxfToNcConverter.Systems
                         
                         offsetXAccumulator += offsetX;
 
+                        var drillTime = polyline.Color != AciColor.Default
+                                            ? configurationService.FastenersDrillTime
+                                            : configurationService.HoleDrillTime;
+
                         var drillVertex = new NcDrillVertexParameters
                                           {
                                               offsetX = offsetX,
                                               offsetY = offsetY,
-                                              drillTime = configurationService.HoleDrillTime
+                                              drillTime = drillTime
                                           };
                         
                         logger.Debug($"Drill vertex: X offset: '{drillVertex.offsetX}', Y offset: '{drillVertex.offsetY}', Drill time: '{drillVertex.drillTime}'.");
