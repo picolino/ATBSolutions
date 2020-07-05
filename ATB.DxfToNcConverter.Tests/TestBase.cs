@@ -1,5 +1,6 @@
 using System.IO;
 using ATB.DxfToNcConverter.Tests.Fakes;
+using ATB.DxfToNcConverter.Tests.UnitTests.DSL;
 using Leopotam.Ecs;
 using netDxf;
 using netDxf.Entities;
@@ -9,6 +10,7 @@ namespace ATB.DxfToNcConverter.Tests
 {
     public abstract class TestBase
     {
+        protected Builder GiveMe { get; private set; }
         protected ConfigurationServiceStub ConfigurationServiceStub { get; private set; }
         protected DxfServiceStub DxfServiceStub { get; private set; }
         protected FileSystemServiceStub FileSystemServiceStub { get; private set; }
@@ -16,6 +18,7 @@ namespace ATB.DxfToNcConverter.Tests
         [SetUp]
         protected virtual void Setup()
         {
+            GiveMe = new Builder();
             ConfigurationServiceStub = new ConfigurationServiceStub();
             DxfServiceStub = new DxfServiceStub();
             FileSystemServiceStub = new FileSystemServiceStub();
@@ -62,22 +65,20 @@ namespace ATB.DxfToNcConverter.Tests
         
         protected DxfDocument CreateCorrectPlainDxfDocument()
         {
-            var dxfDocument = new DxfDocument();
+            var polylines = new[]
+                            {
+                                GiveMe.DxfPolyline
+                                      .WithVertex(0, 150)
+                                      .WithVertex(150, 0)
+                                      .WithVertex(0, -150)
+                                      .WithVertex(-150, 0)
+                                      .Please()
+                            };
             
-            dxfDocument.AddEntity(new Circle(Vector2.Zero, 200));
-            dxfDocument.AddEntity(new Circle(Vector2.Zero, 100));
-            
-            var vertexes = new []
-                           {
-                               new LwPolylineVertex(0, 150), 
-                               new LwPolylineVertex(150, 0), 
-                               new LwPolylineVertex(0, -150), 
-                               new LwPolylineVertex(-150, 0)
-                           };
-            
-            var polyline = new LwPolyline(vertexes, true);
-
-            dxfDocument.AddEntity(polyline);
+            var dxfDocument = GiveMe.DxfDocument
+                                     .WithCircle(200)
+                                     .WithPolylines(polylines)
+                                     .Please();
 
             return dxfDocument;
         }

@@ -48,8 +48,9 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         }
 
         [Test]
-        public void StartPointMustBeEqualToBiggestCircleRadiusOnXAxisAndZeroOnYAxis()
+        public void StartPointMustBeEqualToBiggestCircleRadiusMinusStartingOffsetOnXAxisAndZeroOnYAxis()
         {
+            ConfigurationServiceStub.StartPointXOffset = -143;
             var document = CreateCorrectPlainDxfDocument();
             document.Circles.First().Radius = 412;
             var entity = World.NewEntity();
@@ -58,7 +59,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             
             System.Run();
             
-            Assert.That(ncParametersFilter.Get1(0).startPointX, Is.EqualTo(412));
+            Assert.That(ncParametersFilter.Get1(0).startPointX, Is.EqualTo(412-143));
             Assert.That(ncParametersFilter.Get1(0).startPointY, Is.EqualTo(0));
         }
 
@@ -72,6 +73,22 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             System.Run();
             
             Assert.That(ncParametersFilter.Get1(0).drillParameters.Count(), Is.EqualTo(4));
+        }
+
+        [Test]
+        public void AngleBetweenVertexesMustBeCorrect()
+        {
+            var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+            entity.Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+            
+            System.Run();
+
+            var drillParameters = ncParametersFilter.Get1(0).drillParameters.ToArray();
+            Assert.That(drillParameters[0].offsetY, Is.EqualTo(0));
+            Assert.That(drillParameters[1].offsetY, Is.EqualTo(90));
+            Assert.That(drillParameters[2].offsetY, Is.EqualTo(90));
+            Assert.That(drillParameters[3].offsetY, Is.EqualTo(90));
         }
     }
 }
