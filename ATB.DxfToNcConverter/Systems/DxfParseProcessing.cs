@@ -64,7 +64,7 @@ namespace ATB.DxfToNcConverter.Systems
                 
                 foreach (var polyline in polylines)
                 {
-                    logger.Debug($"Parsing polyline: Handle: '{polyline.Handle}'.");
+                    logger.Debug($"Parsing polyline: Handle: '{polyline.Handle}'. Vertexes count: {polyline.Vertexes.Count}");
                     
                     foreach (var vertex in polyline.Vertexes)
                     {
@@ -78,7 +78,7 @@ namespace ATB.DxfToNcConverter.Systems
                         var offsetY = RoundDefault(angle);
                         
                         previousXPosition += offsetX;
- 
+
                         var drillTime = polyline.Color.IsByLayer
                                             ? configurationService.HoleDrillTime
                                             : configurationService.FastenersDrillTime;
