@@ -76,8 +76,8 @@ namespace ATB.DxfToNcConverter.Systems
                         var offsetY = RoundDefault(angle);
                         
                         offsetXAccumulator += offsetX;
-
-                        var drillTime = polyline.Color != AciColor.Default
+ 
+                        var drillTime = polyline.Color != AciColor.ByLayer
                                             ? configurationService.FastenersDrillTime
                                             : configurationService.HoleDrillTime;
 
