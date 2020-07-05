@@ -55,7 +55,7 @@ namespace ATB.DxfToNcConverter.Systems
                 
                 var drillParameters = new List<NcDrillVertexParameters>();
 
-                var offsetXAccumulator = 0d;
+                var previousXPosition = ncParametersComponent.startPointX;
                 var previousVertexVector = Vector2.UnitY;
                 
                 logger.Debug($"Parsing polylines...");
@@ -67,15 +67,15 @@ namespace ATB.DxfToNcConverter.Systems
                     foreach (var vertex in polyline.Vertexes)
                     {
                         var circleCenterToVertexPositionVector = vertex.Position - biggestCircleCenter2d;
-                        var circleCenterToVertexPositionDistance = circleCenterToVertexPositionVector.Modulus();
+                        var circleCenterToVertexPositionDistance = circleCenterToVertexPositionVector.Modulus() + configurationService.StartPointXOffset;
                         
                         var angle = Rad2Deg(SignedAngleBetween(previousVertexVector, circleCenterToVertexPositionVector));
                         previousVertexVector = circleCenterToVertexPositionVector;
                         
-                        var offsetX = RoundDefault(circleCenterToVertexPositionDistance - ncParametersComponent.startPointX - offsetXAccumulator);
+                        var offsetX = RoundDefault(circleCenterToVertexPositionDistance - previousXPosition);
                         var offsetY = RoundDefault(angle);
                         
-                        offsetXAccumulator += offsetX;
+                        previousXPosition += offsetX;
  
                         var drillTime = polyline.Color.IsByLayer
                                             ? configurationService.HoleDrillTime
