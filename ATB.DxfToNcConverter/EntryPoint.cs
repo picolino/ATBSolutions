@@ -21,7 +21,7 @@ namespace ATB.DxfToNcConverter
                                   new Option<bool>(new[] {"-wi", "--what-if"}, "What-if mode. It provides additional logging information while running but not performs real converting."),
                                   new Argument<string>("directory", Directory.GetCurrentDirectory, "Working directory."),
                                   new Option<double>(new [] {"-hdt", "--hole-drill-time"}, () => 1.5, "Drill down moving for holes time in seconds."),
-                                  new Option<double>(new [] {"-fdt", "--fasteners-drill-time"}, () => 1.5, "Drill down moving for fasteners time in seconds."),
+                                  new Option<double>(new [] {"-fdt", "--fasteners-drill-time"}, () => 0.5, "Drill down moving for fasteners time in seconds."),
                                   new Option<double>(new [] {"-epx", "--end-position-x"}, () => 300, "X position at the end of program execution."),
                                   new Option<double>(new [] {"-spxo", "--start-point-x-offset"}, () => -50, "X position offset at the start of program execution.")
                               };
