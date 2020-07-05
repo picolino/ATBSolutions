@@ -27,7 +27,14 @@ namespace ATB.DxfToNcConverter.Tests.IntegrationTests
         public void PlainDocumentConvertsCorrectly()
         {
             ConfigurationServiceStub.WorkingDirectory = "C:\\tmp\\";
-            var dxfDocument = CreateCorrectPlainDxfDocument();
+            var dxfDocument = GiveMe.DxfDocument
+                                    .WithCircle(200)
+                                    .WithPolylines(GiveMe.DxfPolyline
+                                                         .WithVertex(0, 150)
+                                                         .WithVertex(150, 0)
+                                                         .WithVertex(0, -150)
+                                                         .WithVertex(-150, 0)
+                                                         .Please()).Please();
             FileSystemServiceStub.FilesInWorkingDirectory.Add("C:\\tmp\\dxf_file.dxf");
             DxfServiceStub.DxfDocuments.Add("C:\\tmp\\dxf_file.dxf", dxfDocument);
             

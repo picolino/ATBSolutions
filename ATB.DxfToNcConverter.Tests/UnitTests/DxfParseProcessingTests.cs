@@ -25,7 +25,14 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             {
                 var entity = World.NewEntity();
                 entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
-                entity.Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+                entity.Get<DxfFileContent>().dfxDocument = GiveMe.DxfDocument
+                                                                 .WithCircle(200)
+                                                                 .WithPolylines(GiveMe.DxfPolyline
+                                                                                      .WithVertex(0, 150)
+                                                                                      .WithVertex(150, 0)
+                                                                                      .WithVertex(0, -150)
+                                                                                      .WithVertex(-150, 0)
+                                                                                      .Please()).Please();
             }
             
             System.Run();
@@ -39,7 +46,14 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             ConfigurationServiceStub.EndPoint = new netDxf.Vector2(230, 123);
             var entity = World.NewEntity();
             entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
-            entity.Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+            entity.Get<DxfFileContent>().dfxDocument = GiveMe.DxfDocument
+                                                             .WithCircle(200)
+                                                             .WithPolylines(GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 150)
+                                                                                  .WithVertex(150, 0)
+                                                                                  .WithVertex(0, -150)
+                                                                                  .WithVertex(-150, 0)
+                                                                                  .Please()).Please();
             
             System.Run();
             
@@ -51,7 +65,14 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         public void StartPointMustBeEqualToBiggestCircleRadiusMinusStartingOffsetOnXAxisAndZeroOnYAxis()
         {
             ConfigurationServiceStub.StartPointXOffset = -143;
-            var document = CreateCorrectPlainDxfDocument();
+            var document = GiveMe.DxfDocument
+                                 .WithCircle(200)
+                                 .WithPolylines(GiveMe.DxfPolyline
+                                                      .WithVertex(0, 150)
+                                                      .WithVertex(150, 0)
+                                                      .WithVertex(0, -150)
+                                                      .WithVertex(-150, 0)
+                                                      .Please()).Please();
             document.Circles.First().Radius = 412;
             var entity = World.NewEntity();
             entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
@@ -68,7 +89,14 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         {
             var entity = World.NewEntity();
             entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
-            entity.Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+            entity.Get<DxfFileContent>().dfxDocument = GiveMe.DxfDocument
+                                                             .WithCircle(200)
+                                                             .WithPolylines(GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 150)
+                                                                                  .WithVertex(150, 0)
+                                                                                  .WithVertex(0, -150)
+                                                                                  .WithVertex(-150, 0)
+                                                                                  .Please()).Please();
             
             System.Run();
             
@@ -76,11 +104,18 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         }
 
         [Test]
-        public void AngleBetweenVertexesMustBeCorrect()
+        public void YOffsetMustApplyCorrectly()
         {
             var entity = World.NewEntity();
             entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
-            entity.Get<DxfFileContent>().dfxDocument = CreateCorrectPlainDxfDocument();
+            entity.Get<DxfFileContent>().dfxDocument = GiveMe.DxfDocument
+                                                             .WithCircle(200)
+                                                             .WithPolylines(GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 150)
+                                                                                  .WithVertex(150, 0)
+                                                                                  .WithVertex(0, -150)
+                                                                                  .WithVertex(-150, 0)
+                                                                                  .Please()).Please();
             
             System.Run();
 
@@ -89,6 +124,29 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             Assert.That(drillParameters[1].offsetY, Is.EqualTo(90));
             Assert.That(drillParameters[2].offsetY, Is.EqualTo(90));
             Assert.That(drillParameters[3].offsetY, Is.EqualTo(90));
+        }
+
+        [Test]
+        public void XOffsetMustApplyCorrectly()
+        {
+            var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+            entity.Get<DxfFileContent>().dfxDocument = GiveMe.DxfDocument
+                                                             .WithCircle(200)
+                                                             .WithPolylines(GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 140)
+                                                                                  .WithVertex(130, 0)
+                                                                                  .WithVertex(0, -150)
+                                                                                  .WithVertex(-160, 0)
+                                                                                  .Please()).Please();
+            
+            System.Run();
+            
+            var drillParameters = ncParametersFilter.Get1(0).drillParameters.ToArray();
+            Assert.That(drillParameters[0].offsetX, Is.EqualTo(-60));
+            Assert.That(drillParameters[1].offsetX, Is.EqualTo(-10));
+            Assert.That(drillParameters[2].offsetX, Is.EqualTo(20));
+            Assert.That(drillParameters[3].offsetX, Is.EqualTo(10));
         }
     }
 }

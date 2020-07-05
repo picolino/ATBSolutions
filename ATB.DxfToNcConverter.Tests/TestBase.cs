@@ -62,25 +62,5 @@ namespace ATB.DxfToNcConverter.Tests
         {
             return File.ReadAllText(TestContext.CurrentContext.TestDirectory + relativePath);
         }
-        
-        protected DxfDocument CreateCorrectPlainDxfDocument()
-        {
-            var polylines = new[]
-                            {
-                                GiveMe.DxfPolyline
-                                      .WithVertex(0, 150)
-                                      .WithVertex(150, 0)
-                                      .WithVertex(0, -150)
-                                      .WithVertex(-150, 0)
-                                      .Please()
-                            };
-            
-            var dxfDocument = GiveMe.DxfDocument
-                                     .WithCircle(200)
-                                     .WithPolylines(polylines)
-                                     .Please();
-
-            return dxfDocument;
-        }
     }
 }
