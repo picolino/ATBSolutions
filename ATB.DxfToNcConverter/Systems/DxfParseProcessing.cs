@@ -60,7 +60,9 @@ namespace ATB.DxfToNcConverter.Systems
                 
                 logger.Debug($"Parsing polylines...");
 
-                foreach (var polyline in dxfDocument.LwPolylines)
+                var polylines = dxfDocument.LwPolylines.OrderByDescending(o => o.Vertexes.Count);
+                
+                foreach (var polyline in polylines)
                 {
                     logger.Debug($"Parsing polyline: Handle: '{polyline.Handle}'.");
                     
