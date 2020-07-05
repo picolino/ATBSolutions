@@ -77,9 +77,9 @@ namespace ATB.DxfToNcConverter.Systems
                         
                         offsetXAccumulator += offsetX;
  
-                        var drillTime = polyline.Color != AciColor.ByLayer
-                                            ? configurationService.FastenersDrillTime
-                                            : configurationService.HoleDrillTime;
+                        var drillTime = polyline.Color.IsByLayer
+                                            ? configurationService.HoleDrillTime
+                                            : configurationService.FastenersDrillTime;
 
                         var drillVertex = new NcDrillVertexParameters
                                           {
