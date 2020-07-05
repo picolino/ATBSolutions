@@ -10,5 +10,6 @@ namespace ATB.DxfToNcConverter.Tests.Fakes
         public netDxf.Vector2 EndPoint { get; set; }
         public double HoleDrillTime { get; set; }
         public string WorkingDirectory { get; set; }
+        public double StartPointXOffset { get; set; }
     }
 }

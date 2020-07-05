@@ -7,5 +7,6 @@
         netDxf.Vector2 EndPoint { get; }
         double HoleDrillTime { get; }
         string WorkingDirectory { get; }
+        double StartPointXOffset { get; }
     }
 }

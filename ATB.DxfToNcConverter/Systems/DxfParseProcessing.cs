@@ -43,7 +43,7 @@ namespace ATB.DxfToNcConverter.Systems
 
                 ref var ncParametersComponent = ref dxfFileContentEntity.Get<NcParameters>();
 
-                ncParametersComponent.startPointX = biggestCircleRadius;
+                ncParametersComponent.startPointX = biggestCircleRadius + configurationService.StartPointXOffset;
                 ncParametersComponent.startPointY = 0;
                 
                 logger.Debug($"Start point: X: '{ncParametersComponent.startPointX}', Y: '{ncParametersComponent.startPointY}'.");
