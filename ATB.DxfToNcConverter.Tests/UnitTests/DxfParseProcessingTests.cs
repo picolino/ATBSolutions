@@ -148,5 +148,31 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             Assert.That(drillParameters[2].offsetX, Is.EqualTo(20));
             Assert.That(drillParameters[3].offsetX, Is.EqualTo(10));
         }
+
+        [Test]
+        public void ManyPolylinesMustApplyCorrectly()
+        {
+            var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+            entity.Get<DxfFileContent>().dfxDocument = GiveMe.DxfDocument
+                                                             .WithCircle(200)
+                                                             .WithPolylines(GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 150)
+                                                                                  .WithVertex(150, 0)
+                                                                                  .WithVertex(0, -150)
+                                                                                  .WithVertex(-150, 0)
+                                                                                  .Please(),
+                                                                            GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 100)
+                                                                                  .WithVertex(100, 0)
+                                                                                  .WithVertex(0, -100)
+                                                                                  .WithVertex(-100, 0)
+                                                                                  .Please())
+                                                             .Please();
+            
+            System.Run();
+            
+            Assert.That(ncParametersFilter.Get1(0).drillParameters.Count(), Is.EqualTo(8));
+        }
     }
 }
