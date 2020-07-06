@@ -17,11 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="IntegrationTests\TestData" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="IntegrationTests\TestData\pdcc.nc">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="IntegrationTests\TestData\cdcc.nc">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
