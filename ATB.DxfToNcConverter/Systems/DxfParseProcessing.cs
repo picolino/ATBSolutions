@@ -67,6 +67,9 @@ namespace ATB.DxfToNcConverter.Systems
                 foreach (var polyline in polylines)
                 {
                     polylineCounter++;
+                    var sign = polylineCounter % 2 == 0
+                                   ? -1
+                                   : 1;
                     
                     logger.Debug($"Parsing polyline: Handle: '{polyline.Handle}'. Vertexes count: {polyline.Vertexes.Count}");
                     
@@ -74,13 +77,13 @@ namespace ATB.DxfToNcConverter.Systems
                     {
                         var circleCenterToVertexPositionVector = vertex.Position - biggestCircleCenter2d;
                         var circleCenterToVertexPositionDistance = circleCenterToVertexPositionVector.Modulus() + configurationService.StartPointXOffset;
-                        
-                        var angle = Rad2Deg(SignedAngleBetween(previousVertexVector, circleCenterToVertexPositionVector)) * (polylineCounter % 2 == 0 ? -1 : 1);
-                        previousVertexVector = circleCenterToVertexPositionVector;
+
+                        var angle = Rad2Deg(SignedAngleBetween(previousVertexVector, circleCenterToVertexPositionVector)) * sign;
                         
                         var offsetX = RoundDefault(circleCenterToVertexPositionDistance - previousXPosition);
                         var offsetY = RoundDefault(angle);
                         
+                        previousVertexVector = circleCenterToVertexPositionVector;
                         previousXPosition += offsetX;
 
                         var drillTime = polyline.Color.IsByLayer
