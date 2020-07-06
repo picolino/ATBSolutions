@@ -61,9 +61,13 @@ namespace ATB.DxfToNcConverter.Systems
                 logger.Debug($"Parsing polylines...");
 
                 var polylines = dxfDocument.LwPolylines.OrderByDescending(o => o.Vertexes.Count);
+
+                var polylineCounter = 0;
                 
                 foreach (var polyline in polylines)
                 {
+                    polylineCounter++;
+                    
                     logger.Debug($"Parsing polyline: Handle: '{polyline.Handle}'. Vertexes count: {polyline.Vertexes.Count}");
                     
                     foreach (var vertex in polyline.Vertexes)
@@ -71,7 +75,7 @@ namespace ATB.DxfToNcConverter.Systems
                         var circleCenterToVertexPositionVector = vertex.Position - biggestCircleCenter2d;
                         var circleCenterToVertexPositionDistance = circleCenterToVertexPositionVector.Modulus() + configurationService.StartPointXOffset;
                         
-                        var angle = Rad2Deg(SignedAngleBetween(previousVertexVector, circleCenterToVertexPositionVector));
+                        var angle = Rad2Deg(SignedAngleBetween(previousVertexVector, circleCenterToVertexPositionVector)) * (polylineCounter % 2 == 0 ? -1 : 1);
                         previousVertexVector = circleCenterToVertexPositionVector;
                         
                         var offsetX = RoundDefault(circleCenterToVertexPositionDistance - previousXPosition);

@@ -171,8 +171,90 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
                                                              .Please();
             
             System.Run();
+
+            var drillParameters = ncParametersFilter.Get1(0).drillParameters;
+            Assert.That(drillParameters.Count(), Is.EqualTo(8));
+        }
+
+        [Test]
+        public void EvenPolylinesMustApplyWithReversedSign()
+        {
+            var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+            entity.Get<DxfFileContent>().dfxDocument = GiveMe.DxfDocument
+                                                             .WithCircle(200)
+                                                             .WithPolylines(GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 150)
+                                                                                  .WithVertex(150, 0)
+                                                                                  .WithVertex(0, -150)
+                                                                                  .WithVertex(-150, 0)
+                                                                                  .Please(),
+                                                                            GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 100)
+                                                                                  .WithVertex(100, 0)
+                                                                                  .WithVertex(0, -100)
+                                                                                  .WithVertex(-100, 0)
+                                                                                  .Please())
+                                                             .Please();
             
-            Assert.That(ncParametersFilter.Get1(0).drillParameters.Count(), Is.EqualTo(8));
+            System.Run();
+
+            var drillParameters = ncParametersFilter.Get1(0).drillParameters.ToArray();
+            Assert.That(drillParameters.Take(4).Select(o => o.offsetY), Is.All.GreaterThanOrEqualTo(0));
+            Assert.That(drillParameters.Skip(4).Select(o => o.offsetY), Is.All.LessThan(0));
+        }
+
+        [Test]
+        public void ClosestAngleMustApplyWithDifferentSign()
+        {
+            var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+            entity.Get<DxfFileContent>().dfxDocument = GiveMe.DxfDocument
+                                                             .WithCircle(200)
+                                                             .WithPolylines(GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 150)
+                                                                                  .WithVertex(150, 0)
+                                                                                  .WithVertex(-75, 75)
+                                                                                  .WithVertex(150, 0)
+                                                                                  .Please()).Please();
+            
+            System.Run();
+            
+            var drillParameters = ncParametersFilter.Get1(0).drillParameters.ToArray();
+            Assert.That(drillParameters[0].offsetY, Is.EqualTo(0));
+            Assert.That(drillParameters[1].offsetY, Is.EqualTo(90));
+            Assert.That(drillParameters[2].offsetY, Is.EqualTo(-135));
+            Assert.That(drillParameters[3].offsetY, Is.EqualTo(135));
+        }
+
+        [Test]
+        public void ClosestAngleMustApplyWithDifferentSignForEvenPolyline()
+        {
+            var entity = World.NewEntity();
+            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
+            entity.Get<DxfFileContent>().dfxDocument = GiveMe.DxfDocument
+                                                             .WithCircle(200)
+                                                             .WithPolylines(GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 20)
+                                                                                  .WithVertex(0, 20)
+                                                                                  .WithVertex(0, 20)
+                                                                                  .WithVertex(0, 20)
+                                                                                  .WithVertex(0, 20)
+                                                                                  .Please())
+                                                             .WithPolylines(GiveMe.DxfPolyline
+                                                                                  .WithVertex(0, 150)
+                                                                                  .WithVertex(150, 0)
+                                                                                  .WithVertex(-75, 75)
+                                                                                  .WithVertex(150, 0)
+                                                                                  .Please()).Please();
+            
+            System.Run();
+            
+            var drillParameters = ncParametersFilter.Get1(0).drillParameters.Skip(5).ToArray();
+            Assert.That(drillParameters[0].offsetY, Is.EqualTo(0));
+            Assert.That(drillParameters[1].offsetY, Is.EqualTo(-90));
+            Assert.That(drillParameters[2].offsetY, Is.EqualTo(135));
+            Assert.That(drillParameters[3].offsetY, Is.EqualTo(-135));
         }
     }
 }
