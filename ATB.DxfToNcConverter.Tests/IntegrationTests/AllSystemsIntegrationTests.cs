@@ -53,7 +53,8 @@ namespace ATB.DxfToNcConverter.Tests.IntegrationTests
                                     .WithPolylines(GiveMe.DxfPolyline.AutoBuildByAngleAndRadius(8.1818, 175).Please(),
                                                    GiveMe.DxfPolyline.AutoBuildByAngleAndRadius(9.4737, 150).Please(),
                                                    GiveMe.DxfPolyline.AutoBuildByAngleAndRadius(11.2500, 125).Please(),
-                                                   GiveMe.DxfPolyline.AutoBuildByAngleAndRadius(13.8462, 100).Please())
+                                                   GiveMe.DxfPolyline.AutoBuildByAngleAndRadius(13.8462, 100).Please(),
+                                                   GiveMe.DxfPolyline.AutoBuildByAngleAndRadius(90.000, 100).Please())
                                     .Please();
             FileSystemServiceStub.FilesInWorkingDirectory.Add("C:\\tmp\\dxf_file.dxf");
             DxfServiceStub.DxfDocuments.Add("C:\\tmp\\dxf_file.dxf", dxfDocument);
@@ -61,6 +62,24 @@ namespace ATB.DxfToNcConverter.Tests.IntegrationTests
             systems.Run();
 
             var ncExpected = GetTestFileContent("\\IntegrationTests\\TestData\\cdcc.nc");
+            Assert.That(FileSystemServiceStub.SavedFiles["C:\\tmp\\dxf_file.nc"], Is.EqualTo(ncExpected));
+        }
+
+        [Test]
+        public void PlainDocumentConvertsCorrectly2()
+        {
+            ConfigurationServiceStub.WorkingDirectory = "C:\\tmp\\";
+            var dxfDocument = GiveMe.DxfDocument
+                                    .WithCircle(200)
+                                    .WithPolylines(GiveMe.DxfPolyline.AutoBuildByAngleAndRadius(60, 150).Please(),
+                                                   GiveMe.DxfPolyline.AutoBuildByAngleAndRadius(90, 140).Please())
+                                    .Please();
+            FileSystemServiceStub.FilesInWorkingDirectory.Add("C:\\tmp\\dxf_file.dxf");
+            DxfServiceStub.DxfDocuments.Add("C:\\tmp\\dxf_file.dxf", dxfDocument);
+            
+            systems.Run();
+
+            var ncExpected = GetTestFileContent("\\IntegrationTests\\TestData\\pdcc2.nc");
             Assert.That(FileSystemServiceStub.SavedFiles["C:\\tmp\\dxf_file.nc"], Is.EqualTo(ncExpected));
         }
     }

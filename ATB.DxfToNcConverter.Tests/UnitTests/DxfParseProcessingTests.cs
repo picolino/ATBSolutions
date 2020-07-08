@@ -201,7 +201,7 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
 
             var drillParameters = ncParametersFilter.Get1(0).drillParameters.ToArray();
             Assert.That(drillParameters.Take(4).Select(o => o.offsetY), Is.All.GreaterThanOrEqualTo(0));
-            Assert.That(drillParameters.Skip(4).Select(o => o.offsetY), Is.All.LessThan(0));
+            Assert.That(drillParameters.Skip(4).Select(o => o.offsetY), Is.All.LessThanOrEqualTo(0));
         }
 
         [Test]
@@ -251,10 +251,10 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
             System.Run();
             
             var drillParameters = ncParametersFilter.Get1(0).drillParameters.Skip(5).ToArray();
-            Assert.That(drillParameters[0].offsetY, Is.EqualTo(0));
-            Assert.That(drillParameters[1].offsetY, Is.EqualTo(-90));
+            Assert.That(drillParameters[0].offsetY, Is.EqualTo(90));
+            Assert.That(drillParameters[1].offsetY, Is.EqualTo(-135));
             Assert.That(drillParameters[2].offsetY, Is.EqualTo(135));
-            Assert.That(drillParameters[3].offsetY, Is.EqualTo(-135));
+            Assert.That(drillParameters[3].offsetY, Is.EqualTo(-90));
         }
     }
 }

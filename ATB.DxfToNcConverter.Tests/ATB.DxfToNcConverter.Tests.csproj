@@ -23,6 +23,9 @@
       <None Update="IntegrationTests\TestData\cdcc.nc">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="IntegrationTests\TestData\pdcc2.nc">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
