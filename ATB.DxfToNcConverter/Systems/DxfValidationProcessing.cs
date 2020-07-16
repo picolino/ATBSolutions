@@ -53,11 +53,6 @@ namespace ATB.DxfToNcConverter.Systems
 
                     var biggestCircle = circles.OrderByDescending(o => o.Radius).First();
 
-                    if (polylines.Any(o => !o.IsClosed))
-                    {
-                        throw new PolylineIsNotClosedException(dxfFileDefinitionComponent.path);
-                    }
-
                     if (polylines.Any(o => o.Vertexes.Any(o1 => 
                                                               !IsPointInsideTheCircle(biggestCircle.Center.X, 
                                                                                        biggestCircle.Center.Y, 

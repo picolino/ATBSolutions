@@ -37,23 +37,6 @@ namespace ATB.DxfToNcConverter.Tests.UnitTests
         }
 
         [Test]
-        [TestCase(true, ExpectedResult = 1)]
-        [TestCase(false, ExpectedResult = 0)]
-        public int IfAnyPolylineIsNotClosedThenEntityMustBeDeleted(bool isClosed)
-        {
-            var document = new DxfDocument();
-            document.AddEntity(new Circle());
-            document.AddEntity(new LwPolyline(new []{new LwPolylineVertex(), new LwPolylineVertex()}, isClosed));
-            var entity = World.NewEntity();
-            entity.Get<DxfFileDefinition>().path = "C:\\tmp\\dxf_file.dxf";
-            entity.Get<DxfFileContent>().dfxDocument = document;
-            
-            System.Run();
-
-            return dxfFileContentFilter.GetEntitiesCount();
-        }
-
-        [Test]
         [TestCase(true, ExpectedResult = 0)]
         [TestCase(false, ExpectedResult = 1)]
         public int IfAnyPolylineVertexIsOutsideTheBiggestCircleThenEntityMustBeDeleted(bool hasPolylineVertexOutsideTheBiggestCircle)
