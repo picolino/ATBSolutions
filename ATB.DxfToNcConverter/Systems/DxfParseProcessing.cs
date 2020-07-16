@@ -54,6 +54,7 @@ namespace ATB.DxfToNcConverter.Systems
                 logger.Debug($"End point: X: '{ncParametersComponent.endPointX}', Y: '{ncParametersComponent.endPointY}'.");
                 
                 var drillParameters = new List<NcDrillVertexParameters>();
+                var existingVertexPositions = new List<Vector2>();
 
                 var previousXPosition = ncParametersComponent.startPointX;
                 var previousVertexVector = Vector2.UnitY;
@@ -66,10 +67,10 @@ namespace ATB.DxfToNcConverter.Systems
                 
                 foreach (var polyline in polylines)
                 {
+                    logger.Debug($"Parsing polyline: Handle: '{polyline.Handle}'. Vertexes count: {polyline.Vertexes.Count}");
+                    
                     polylineCounter++;
                     var reverseOrder = polylineCounter % 2 == 0;
-                    
-                    logger.Debug($"Parsing polyline: Handle: '{polyline.Handle}'. Vertexes count: {polyline.Vertexes.Count}");
 
                     var vertexes = reverseOrder
                                        ? polyline.Vertexes.AsEnumerable().Reverse().ToList()
@@ -77,6 +78,12 @@ namespace ATB.DxfToNcConverter.Systems
                     
                     foreach (var vertex in vertexes)
                     {
+                        if (existingVertexPositions.Contains(vertex.Position))
+                        {
+                            logger.Debug($"Vertex at position {vertex.Position} already exists. Passing...");
+                            continue;
+                        }
+                        
                         var circleCenterToVertexPositionVector = vertex.Position - biggestCircleCenter2d;
                         var circleCenterToVertexPositionDistance = circleCenterToVertexPositionVector.Modulus() + configurationService.StartPointXOffset;
 
@@ -102,6 +109,7 @@ namespace ATB.DxfToNcConverter.Systems
                         logger.Debug($"Drill vertex: X offset: '{drillVertex.offsetX}', Y offset: '{drillVertex.offsetY}', Drill time: '{drillVertex.drillTime}'.");
                         
                         drillParameters.Add(drillVertex);
+                        existingVertexPositions.Add(vertex.Position);
                     }
                 }
                 
