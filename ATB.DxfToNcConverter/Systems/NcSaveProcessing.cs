@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using ATB.DxfToNcConverter.Components;
+using ATB.DxfToNcConverter.Resources;
 using ATB.DxfToNcConverter.Services;
 using Leopotam.Ecs;
 using NLog;
@@ -20,7 +21,7 @@ namespace ATB.DxfToNcConverter.Systems
                 return;
             }
             
-            logger.Info("Saving NC programs...");
+            logger.Info(Logging.SavingNcPrograms);
             
             foreach (var idx in filter)
             {
@@ -32,7 +33,7 @@ namespace ATB.DxfToNcConverter.Systems
                 
                 fileSystemService.SaveFileWithContent(fileFullPath, ncProgramComponent.programText);
                 
-                logger.Debug($"NC file '{fileFullPath}' saved.");
+                logger.Debug(string.Format(Logging.NcFileSaved, fileFullPath));
             }
         }
     }

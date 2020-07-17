@@ -3,6 +3,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
 using System.Numerics;
+using ATB.DxfToNcConverter.Resources;
 using ATB.DxfToNcConverter.Services;
 using ATB.DxfToNcConverter.Systems;
 using Leopotam.Ecs;
@@ -17,21 +18,16 @@ namespace ATB.DxfToNcConverter
         {
             var rootCommand = new RootCommand
                               {
-                                  new Option<bool>(new[] {"-d", "--debug"}, "Debug mode. Provides additional logging information while running."),
-                                  new Option<bool>(new[] {"-wi", "--what-if"}, "What-if mode. It provides additional logging information while running but not performs real converting."),
-                                  new Argument<string>("directory", Directory.GetCurrentDirectory, "Working directory."),
-                                  new Option<double>(new [] {"-hdt", "--hole-drill-time"}, () => 1.5, "Drill down moving for holes time in seconds."),
-                                  new Option<double>(new [] {"-fdt", "--fasteners-drill-time"}, () => 0.5, "Drill down moving for fasteners time in seconds."),
-                                  new Option<double>(new [] {"-epx", "--end-position-x"}, () => 300, "X position at the end of program execution."),
-                                  new Option<double>(new [] {"-spxo", "--start-point-x-offset"}, () => -57, "X position offset at the start of program execution.")
+                                  new Option<bool>(new[] {"-d", "--debug"}, Common.DebugModeDescription),
+                                  new Option<bool>(new[] {"-wi", "--what-if"}, Common.WhatIfModeDescription),
+                                  new Argument<string>("directory", Directory.GetCurrentDirectory, Common.WorkingDirectoryDescription),
+                                  new Option<double>(new [] {"-hdt", "--hole-drill-time"}, () => 1.5, Common.HoleDrillTimeDescription),
+                                  new Option<double>(new [] {"-fdt", "--fasteners-drill-time"}, () => 0.5, Common.FastenersDrillTimeDescription),
+                                  new Option<double>(new [] {"-epx", "--end-position-x"}, () => 300, Common.EndXPositionDescription),
+                                  new Option<double>(new [] {"-spxo", "--start-point-x-offset"}, () => -57, Common.XPositionOffsetDescription)
                               };
 
-            rootCommand.Description = "This application creates NC files from DXF files with corresponding file names." +
-                                      "\nEach polyline vertex in DXF file will be a drill point in creating NC program." +
-                                      "\n\nDXF files restrictions:" +
-                                      "\n\t- Must contain at least one circle element;" +
-                                      "\n\t- Must contain only closed polylines;" +
-                                      "\n\t- All polylines must be inside the biggest circle.";
+            rootCommand.Description = Common.ProgramDescription;
 
             rootCommand.Handler = CommandHandler.Create<bool, bool, string, double, double, double, double>(Run);
             return rootCommand.Invoke(args);
@@ -42,11 +38,11 @@ namespace ATB.DxfToNcConverter
             ConfigureLogging(debug, whatIf);
             var logger = LogManager.GetCurrentClassLogger();
             
-            logger.Info("DxfToNcConverter started...");
+            logger.Info(Logging.ProgramStarted);
 
             if (debug)
             {
-                logger.Info("Debug mode activated.");
+                logger.Info(Logging.DebugModeActivated);
             }
             
             var world = new EcsWorld();
@@ -77,7 +73,7 @@ namespace ATB.DxfToNcConverter
 
             if (whatIf)
             {
-                logger.Info("What-If mode activated.");
+                logger.Info(Logging.WhatIfModeActivated);
                 
                 var idx = systems.GetNamedRunSystem(nameof(NcSaveProcessing));
                 systems.SetRunSystemState(idx, false);
@@ -99,11 +95,11 @@ namespace ATB.DxfToNcConverter
                 systems.Destroy();
                 world.Destroy();
                 
-                logger.Info("DxfToNcConverter finished.");
+                logger.Info(Logging.ProgramFinished);
 
                 if (consoleStayOpenForce || debug || whatIf)
                 {
-                    Console.WriteLine("Press any button to exit...");
+                    Console.WriteLine(Logging.PressAnyKeyToExit);
                     Console.Read();
                 }
             }

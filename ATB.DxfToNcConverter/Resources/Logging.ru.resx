@@ -39,7 +39,7 @@
     <data name="NoDxfFilesFound">
         <value>В рабочей директории не найдено ни одного *.dxf файла.</value>
     </data>
-    <data name="Loading DXF files...">
+    <data name="LoadingDxfFiles">
         <value>Загрузка DXF файлов...</value>
     </data>
     <data name="DxfFileLoaded">
@@ -89,5 +89,11 @@
     </data>
     <data name="NcFileSaved">
         <value>NC файл '{0}' сохранен.</value>
+    </data>
+    <data name="PressAnyKeyToExit">
+        <value>Нажмите любую кнопку для выхода...</value>
+    </data>
+    <data name="DebugModeActivated">
+        <value>Режим отладки активирован.</value>
     </data>
 </root>

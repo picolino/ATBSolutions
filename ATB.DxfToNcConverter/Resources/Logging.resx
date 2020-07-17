@@ -45,7 +45,7 @@
     <data name="NoDxfFilesFound">
         <value>There are no *.dxf files in working directory.</value>
     </data>
-    <data name="Loading DXF files...">
+    <data name="LoadingDxfFiles">
         <value>Loading DXF files...</value>
     </data>
     <data name="DxfFileLoaded">

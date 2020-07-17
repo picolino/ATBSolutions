@@ -2,6 +2,7 @@
 using System.Linq;
 using ATB.DxfToNcConverter.Components;
 using ATB.DxfToNcConverter.Exceptions;
+using ATB.DxfToNcConverter.Resources;
 using Leopotam.Ecs;
 using netDxf;
 using NLog;
@@ -30,7 +31,7 @@ namespace ATB.DxfToNcConverter.Systems
                 return;
             }
             
-            logger.Info($"Validating DXF files...");
+            logger.Info(Logging.ValidationDxfFiles);
             
             foreach (var dxfFileContentEntityId in dxfFileContentFilter)
             {
@@ -62,7 +63,7 @@ namespace ATB.DxfToNcConverter.Systems
                         throw new PolylineVertexIsOutsideOfTheBiggestCircleException(dxfFileDefinitionComponent.path);
                     }
                     
-                    logger.Debug($"DXF file {dxfFileDefinitionComponent.path} is valid.");
+                    logger.Debug(string.Format(Logging.DxfFileValid, dxfFileDefinitionComponent.path));
                 }
                 catch (Exception e)
                 {

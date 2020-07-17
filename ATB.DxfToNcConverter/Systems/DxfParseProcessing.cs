@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ATB.DxfToNcConverter.Components;
+using ATB.DxfToNcConverter.Resources;
 using ATB.DxfToNcConverter.Services;
 using Leopotam.Ecs;
 using netDxf;
@@ -22,7 +23,7 @@ namespace ATB.DxfToNcConverter.Systems
                 return;
             }
             
-            logger.Info("Parsing DXF files...");
+            logger.Info(Logging.ParsingDxfFiles);
             
             foreach (var dxfFileContentEntityId in dxfFileContentFilter)
             {
@@ -30,7 +31,7 @@ namespace ATB.DxfToNcConverter.Systems
                 ref var dxfFileContentComponent = ref dxfFileContentFilter.Get2(dxfFileContentEntityId);
                 ref var dxfFileContentEntity = ref dxfFileContentFilter.GetEntity(dxfFileContentEntityId);
                 
-                logger.Debug($"Parsing DXF file: '{dxfFileDefinitionComponent.path}'...");
+                logger.Debug(string.Format(Logging.ParsingDxfFile, dxfFileDefinitionComponent.path));
                 
                 var dxfDocument = dxfFileContentComponent.dfxDocument;
 
@@ -39,19 +40,19 @@ namespace ATB.DxfToNcConverter.Systems
                 var biggestCircleRadius = biggestCircle.Radius;
                 var biggestCircleCenter2d = new Vector2(biggestCircle.Center.X, biggestCircle.Center.Y);
                 
-                logger.Debug($"Biggest circle: Handle: '{biggestCircle.Handle}' Center: '{biggestCircleCenter2d}', Radius: '{biggestCircleRadius}'.");
+                logger.Debug(string.Format(Logging.BiggestCircle, biggestCircle.Handle, biggestCircleCenter2d, biggestCircleRadius));
 
                 ref var ncParametersComponent = ref dxfFileContentEntity.Get<NcParameters>();
 
                 ncParametersComponent.startPointX = biggestCircleRadius + configurationService.StartPointXOffset;
                 ncParametersComponent.startPointY = 0;
                 
-                logger.Debug($"Start point: X: '{ncParametersComponent.startPointX}', Y: '{ncParametersComponent.startPointY}'.");
+                logger.Debug(string.Format(Logging.StartPointX, ncParametersComponent.startPointX, ncParametersComponent.startPointY));
                 
                 ncParametersComponent.endPointX = configurationService.EndPoint.X;
                 ncParametersComponent.endPointY = configurationService.EndPoint.Y;
                 
-                logger.Debug($"End point: X: '{ncParametersComponent.endPointX}', Y: '{ncParametersComponent.endPointY}'.");
+                logger.Debug(string.Format(Logging.EndPointX, ncParametersComponent.endPointX, ncParametersComponent.endPointY));
                 
                 var drillParameters = new List<NcDrillVertexParameters>();
                 var existingVertexPositions = new List<Vector2>();
@@ -59,7 +60,7 @@ namespace ATB.DxfToNcConverter.Systems
                 var previousXPosition = ncParametersComponent.startPointX;
                 var previousVertexVector = Vector2.UnitY;
                 
-                logger.Debug($"Parsing polylines...");
+                logger.Debug(Logging.ParsingPolylines);
 
                 var polylines = dxfDocument.LwPolylines.OrderByDescending(o => o.Vertexes.Count);
 
@@ -67,7 +68,7 @@ namespace ATB.DxfToNcConverter.Systems
                 
                 foreach (var polyline in polylines)
                 {
-                    logger.Debug($"Parsing polyline: Handle: '{polyline.Handle}'. Vertexes count: {polyline.Vertexes.Count}");
+                    logger.Debug(string.Format(Logging.ParsingPolyline, polyline.Handle, polyline.Vertexes.Count));
                     
                     polylineCounter++;
                     var reverseOrder = polylineCounter % 2 == 0;
@@ -80,7 +81,7 @@ namespace ATB.DxfToNcConverter.Systems
                     {
                         if (existingVertexPositions.Contains(vertex.Position))
                         {
-                            logger.Debug($"Vertex at position {vertex.Position} already exists. Passing...");
+                            logger.Debug(string.Format(Logging.VertexExists, vertex.Position));
                             continue;
                         }
                         
@@ -106,7 +107,7 @@ namespace ATB.DxfToNcConverter.Systems
                                               drillTime = drillTime
                                           };
                         
-                        logger.Debug($"Drill vertex: X offset: '{drillVertex.offsetX}', Y offset: '{drillVertex.offsetY}', Drill time: '{drillVertex.drillTime}'.");
+                        logger.Debug(string.Format(Logging.DrillVertex, drillVertex.offsetX, drillVertex.offsetY, drillVertex.drillTime));
                         
                         drillParameters.Add(drillVertex);
                         existingVertexPositions.Add(vertex.Position);
@@ -115,7 +116,7 @@ namespace ATB.DxfToNcConverter.Systems
                 
                 ncParametersComponent.drillParameters = drillParameters;
                 
-                logger.Debug($"Parsing DXF file '{dxfFileDefinitionComponent.path}' complete.");
+                logger.Debug(string.Format(Logging.ParsingDxfFileComplete, dxfFileDefinitionComponent.path));
             }
         }
 

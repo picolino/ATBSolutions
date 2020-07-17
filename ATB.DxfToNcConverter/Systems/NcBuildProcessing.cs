@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using ATB.DxfToNcConverter.Components;
+using ATB.DxfToNcConverter.Resources;
 using Leopotam.Ecs;
 using NLog;
 
@@ -20,7 +21,7 @@ namespace ATB.DxfToNcConverter.Systems
                 return;
             }
             
-            logger.Info("Building NC programs...");
+            logger.Info(Logging.BuildingNcPrograms);
             
             foreach (var ncParametersEntityId in ncParametersFilter)
             {

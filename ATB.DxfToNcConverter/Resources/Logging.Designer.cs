@@ -135,9 +135,9 @@ namespace ATB.DxfToNcConverter.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Loading DXF files....
         /// </summary>
-        internal static string Loading_DXF_files___ {
+        internal static string LoadingDxfFiles {
             get {
-                return ResourceManager.GetString("Loading DXF files...", resourceCulture);
+                return ResourceManager.GetString("LoadingDxfFiles", resourceCulture);
             }
         }
         

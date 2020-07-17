@@ -1,5 +1,6 @@
 ﻿using System;
 using ATB.DxfToNcConverter.Components;
+using ATB.DxfToNcConverter.Resources;
 using ATB.DxfToNcConverter.Services;
 using Leopotam.Ecs;
 using NLog;
@@ -26,11 +27,11 @@ namespace ATB.DxfToNcConverter.Systems
         
         public void Run()
         {
-            logger.Info($"Searching DXF files...");
+            logger.Info(Logging.SearchingDxfFiles);
 
             var directoryToSearchDxfFiles = configurationService.WorkingDirectory;
             
-            logger.Debug($"Search directory: '{directoryToSearchDxfFiles}.");
+            logger.Debug(string.Format(Logging.SearchDirectory, directoryToSearchDxfFiles));
             
             foreach (var dxfFullFilePath in fileSystemService.GetDxfFullFilePaths(directoryToSearchDxfFiles))
             {
@@ -38,12 +39,12 @@ namespace ATB.DxfToNcConverter.Systems
                 ref var dfxFullFilePathComponent = ref dxfFullFilePathEntity.Get<DxfFileDefinition>();
                 dfxFullFilePathComponent.path = dxfFullFilePath;
                 
-                logger.Debug($"Found DXF file: '{dxfFullFilePath}'.");
+                logger.Debug(string.Format(Logging.FoundDxfFile, dxfFullFilePath));
             }
 
             if (dxfFileDefinitionFilter.IsEmpty())
             {
-                logger.Warn($"There are no *.dxf files in working directory.");
+                logger.Warn(Logging.NoDxfFilesFound);
                 noDxfFilesInWorkingDirectoryAction?.Invoke();
             }
         }

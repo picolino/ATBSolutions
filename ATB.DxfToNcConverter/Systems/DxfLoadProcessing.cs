@@ -1,4 +1,5 @@
 ﻿using ATB.DxfToNcConverter.Components;
+using ATB.DxfToNcConverter.Resources;
 using ATB.DxfToNcConverter.Services;
 using Leopotam.Ecs;
 using NLog;
@@ -19,7 +20,7 @@ namespace ATB.DxfToNcConverter.Systems
                 return;
             }
             
-            logger.Info($"Loading DXF files...");
+            logger.Info(Logging.LoadingDxfFiles);
             
             foreach (var dxfFullFilePathEntityId in filter)
             {
@@ -29,7 +30,7 @@ namespace ATB.DxfToNcConverter.Systems
                 ref var dfxFileContent = ref dxfEntity.Get<DxfFileContent>();
                 dfxFileContent.dfxDocument = dxfService.LoadDxfDocument(dxfFullFilePathComponent.path);
                 
-                logger.Debug($"File '{dxfFullFilePathComponent.path}' successfully loaded.");
+                logger.Debug(string.Format(Logging.DxfFileLoaded, dxfFullFilePathComponent.path));
             }
         }
     }
