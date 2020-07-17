@@ -16,4 +16,46 @@
       <ProjectReference Include="..\LeoECS\LeoECS.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\Common.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Common.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Common.ru.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Common.ru.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Logging.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Logging.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Logging.ru.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Logging.ru.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\Common.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Common.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Common.ru.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Common.ru.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Logging.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Logging.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Logging.ru.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Logging.ru.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>
