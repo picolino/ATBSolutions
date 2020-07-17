@@ -18,4 +18,82 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
+    <data name="ProgramStarted">
+        <value>DxfToNcConverter started...</value>
+    </data>
+    <data name="ProgramFinished">
+        <value>DxfToNcConverter finished.</value>
+    </data>
+    <data name="PressAnyKeyToExit">
+        <value>Press any button to exit...</value>
+    </data>
+    <data name="DebugModeActivated">
+        <value>Debug mode activated.</value>
+    </data>
+    <data name="WhatIfModeActivated">
+        <value>What-If mode activated.</value>
+    </data>
+    <data name="SearchingDxfFiles">
+        <value>Searching DXF files...</value>
+    </data>
+    <data name="SearchDirectory">
+        <value>Search directory: '{0}'</value>
+    </data>
+    <data name="FoundDxfFile">
+        <value>Found DXF file: '{0}'</value>
+    </data>
+    <data name="NoDxfFilesFound">
+        <value>There are no *.dxf files in working directory.</value>
+    </data>
+    <data name="Loading DXF files...">
+        <value>Loading DXF files...</value>
+    </data>
+    <data name="DxfFileLoaded">
+        <value>File '{0}' successfully loaded.</value>
+    </data>
+    <data name="ValidationDxfFiles">
+        <value>Validating DXF files...</value>
+    </data>
+    <data name="DxfFileValid">
+        <value>DXF file '{0}' is valid.</value>
+    </data>
+    <data name="ParsingDxfFiles">
+        <value>Parsing DXF files...</value>
+    </data>
+    <data name="ParsingDxfFile">
+        <value>Parsing DXF file: '{0}'...</value>
+    </data>
+    <data name="BiggestCircle">
+        <value>Biggest circle: Handle: '{0}' Center: '{1}', Radius: '{2}'.</value>
+    </data>
+    <data name="StartPointX">
+        <value>Start point: X: '{0}', Y: '{1}'.</value>
+    </data>
+    <data name="EndPointX">
+        <value>End point: X: '{0}', Y: '{1}'.</value>
+    </data>
+    <data name="ParsingPolylines">
+        <value>Parsing polylines...</value>
+    </data>
+    <data name="ParsingPolyline">
+        <value>Parsing polyline: Handle: '{0}'. Vertexes count: '{1}'</value>
+    </data>
+    <data name="VertexExists">
+        <value>Vertex at position {0} already exists. Passing...</value>
+    </data>
+    <data name="DrillVertex">
+        <value>Drill vertex: X offset: '{0}', Y offset: '{1}', Drill time: '{2}'.</value>
+    </data>
+    <data name="ParsingDxfFileComplete">
+        <value>Parsing DXF file '{0}' complete.</value>
+    </data>
+    <data name="BuildingNcPrograms">
+        <value>Building NC programs...</value>
+    </data>
+    <data name="SavingNcPrograms">
+        <value>Saving NC programs...</value>
+    </data>
+    <data name="NcFileSaved">
+        <value>NC file '{0}' saved.</value>
+    </data>
 </root>

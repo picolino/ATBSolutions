@@ -59,5 +59,239 @@ namespace ATB.DxfToNcConverter.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biggest circle: Handle: &apos;{0}&apos; Center: &apos;{1}&apos;, Radius: &apos;{2}&apos;..
+        /// </summary>
+        internal static string BiggestCircle {
+            get {
+                return ResourceManager.GetString("BiggestCircle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Building NC programs....
+        /// </summary>
+        internal static string BuildingNcPrograms {
+            get {
+                return ResourceManager.GetString("BuildingNcPrograms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug mode activated..
+        /// </summary>
+        internal static string DebugModeActivated {
+            get {
+                return ResourceManager.GetString("DebugModeActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drill vertex: X offset: &apos;{0}&apos;, Y offset: &apos;{1}&apos;, Drill time: &apos;{2}&apos;..
+        /// </summary>
+        internal static string DrillVertex {
+            get {
+                return ResourceManager.GetString("DrillVertex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File &apos;{0}&apos; successfully loaded..
+        /// </summary>
+        internal static string DxfFileLoaded {
+            get {
+                return ResourceManager.GetString("DxfFileLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DXF file &apos;{0}&apos; is valid..
+        /// </summary>
+        internal static string DxfFileValid {
+            get {
+                return ResourceManager.GetString("DxfFileValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End point: X: &apos;{0}&apos;, Y: &apos;{1}&apos;..
+        /// </summary>
+        internal static string EndPointX {
+            get {
+                return ResourceManager.GetString("EndPointX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found DXF file: &apos;{0}&apos;.
+        /// </summary>
+        internal static string FoundDxfFile {
+            get {
+                return ResourceManager.GetString("FoundDxfFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading DXF files....
+        /// </summary>
+        internal static string Loading_DXF_files___ {
+            get {
+                return ResourceManager.GetString("Loading DXF files...", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NC file &apos;{0}&apos; saved..
+        /// </summary>
+        internal static string NcFileSaved {
+            get {
+                return ResourceManager.GetString("NcFileSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no *.dxf files in working directory..
+        /// </summary>
+        internal static string NoDxfFilesFound {
+            get {
+                return ResourceManager.GetString("NoDxfFilesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parsing DXF file: &apos;{0}&apos;....
+        /// </summary>
+        internal static string ParsingDxfFile {
+            get {
+                return ResourceManager.GetString("ParsingDxfFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parsing DXF file &apos;{0}&apos; complete..
+        /// </summary>
+        internal static string ParsingDxfFileComplete {
+            get {
+                return ResourceManager.GetString("ParsingDxfFileComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parsing DXF files....
+        /// </summary>
+        internal static string ParsingDxfFiles {
+            get {
+                return ResourceManager.GetString("ParsingDxfFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parsing polyline: Handle: &apos;{0}&apos;. Vertexes count: &apos;{1}&apos;.
+        /// </summary>
+        internal static string ParsingPolyline {
+            get {
+                return ResourceManager.GetString("ParsingPolyline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parsing polylines....
+        /// </summary>
+        internal static string ParsingPolylines {
+            get {
+                return ResourceManager.GetString("ParsingPolylines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press any button to exit....
+        /// </summary>
+        internal static string PressAnyKeyToExit {
+            get {
+                return ResourceManager.GetString("PressAnyKeyToExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DxfToNcConverter finished..
+        /// </summary>
+        internal static string ProgramFinished {
+            get {
+                return ResourceManager.GetString("ProgramFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DxfToNcConverter started....
+        /// </summary>
+        internal static string ProgramStarted {
+            get {
+                return ResourceManager.GetString("ProgramStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving NC programs....
+        /// </summary>
+        internal static string SavingNcPrograms {
+            get {
+                return ResourceManager.GetString("SavingNcPrograms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search directory: &apos;{0}&apos;.
+        /// </summary>
+        internal static string SearchDirectory {
+            get {
+                return ResourceManager.GetString("SearchDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searching DXF files....
+        /// </summary>
+        internal static string SearchingDxfFiles {
+            get {
+                return ResourceManager.GetString("SearchingDxfFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start point: X: &apos;{0}&apos;, Y: &apos;{1}&apos;..
+        /// </summary>
+        internal static string StartPointX {
+            get {
+                return ResourceManager.GetString("StartPointX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating DXF files....
+        /// </summary>
+        internal static string ValidationDxfFiles {
+            get {
+                return ResourceManager.GetString("ValidationDxfFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertex at position {0} already exists. Passing....
+        /// </summary>
+        internal static string VertexExists {
+            get {
+                return ResourceManager.GetString("VertexExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What-If mode activated..
+        /// </summary>
+        internal static string WhatIfModeActivated {
+            get {
+                return ResourceManager.GetString("WhatIfModeActivated", resourceCulture);
+            }
+        }
     }
 }
