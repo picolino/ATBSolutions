@@ -106,7 +106,7 @@ namespace ATB.DxfToNcConverter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;What-if mode. It provides additional logging information while running but not performs real converting..
+        ///   Looks up a localized string similar to What-if mode. It provides additional logging information while running but not performs real converting..
         /// </summary>
         internal static string WhatIfModeDescription {
             get {
@@ -115,7 +115,7 @@ namespace ATB.DxfToNcConverter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Working directory..
+        ///   Looks up a localized string similar to Working directory..
         /// </summary>
         internal static string WorkingDirectoryDescription {
             get {

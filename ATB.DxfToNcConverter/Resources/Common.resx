@@ -22,10 +22,10 @@
         <value>Debug mode. Provides additional logging information while running.</value>
     </data>
     <data name="WhatIfModeDescription">
-        <value>"What-if mode. It provides additional logging information while running but not performs real converting.</value>
+        <value>What-if mode. It provides additional logging information while running but not performs real converting.</value>
     </data>
     <data name="WorkingDirectoryDescription">
-        <value>"Working directory.</value>
+        <value>Working directory.</value>
     </data>
     <data name="HoleDrillTimeDescription">
         <value>Drill down moving for holes time in seconds.</value>
