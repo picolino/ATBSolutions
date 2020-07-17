@@ -61,7 +61,7 @@ namespace ATB.DxfToNcConverter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Biggest circle: Handle: &apos;{0}&apos; Center: &apos;{1}&apos;, Radius: &apos;{2}&apos;..
+        ///   Looks up a localized string similar to Biggest circle: Handle: &apos;{0}&apos;. Center: &apos;{1}&apos;. Radius: &apos;{2}&apos;..
         /// </summary>
         internal static string BiggestCircle {
             get {
@@ -88,7 +88,7 @@ namespace ATB.DxfToNcConverter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drill vertex: X offset: &apos;{0}&apos;, Y offset: &apos;{1}&apos;, Drill time: &apos;{2}&apos;..
+        ///   Looks up a localized string similar to Drill vertex: X offset: &apos;{0}&apos;. Y offset: &apos;{1}&apos;. Drill time: &apos;{2}&apos;..
         /// </summary>
         internal static string DrillVertex {
             get {
@@ -277,7 +277,7 @@ namespace ATB.DxfToNcConverter.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vertex at position {0} already exists. Passing....
+        ///   Looks up a localized string similar to Vertex at position &apos;{0}&apos; already exists. Passing....
         /// </summary>
         internal static string VertexExists {
             get {

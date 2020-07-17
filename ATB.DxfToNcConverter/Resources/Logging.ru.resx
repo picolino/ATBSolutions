@@ -18,4 +18,76 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
+    <data name="ProgramStarted">
+        <value>DxfToNcConverter начинает работу...</value>
+    </data>
+    <data name="ProgramFinished">
+        <value>DxfToNcConverter завершил работу.</value>
+    </data>
+    <data name="WhatIfModeActivated">
+        <value>Режим Что-Если активирован.</value>
+    </data>
+    <data name="SearchingDxfFiles">
+        <value>Поиск DXF файлов...</value>
+    </data>
+    <data name="SearchDirectory">
+        <value>Директория для поиска: '{0}'</value>
+    </data>
+    <data name="FoundDxfFile">
+        <value>Найден DXF файл: '{0}'</value>
+    </data>
+    <data name="NoDxfFilesFound">
+        <value>В рабочей директории не найдено ни одного *.dxf файла.</value>
+    </data>
+    <data name="Loading DXF files...">
+        <value>Загрузка DXF файлов...</value>
+    </data>
+    <data name="DxfFileLoaded">
+        <value>Файл '{0}' успешно загружен.</value>
+    </data>
+    <data name="ValidationDxfFiles">
+        <value>Валидация DXF файлов...</value>
+    </data>
+    <data name="DxfFileValid">
+        <value>DXF файл '{0}' валиден.</value>
+    </data>
+    <data name="ParsingDxfFiles">
+        <value>Чтение DXF файлов...</value>
+    </data>
+    <data name="ParsingDxfFile">
+        <value>Чтение DXF файла: '{0}'...</value>
+    </data>
+    <data name="BiggestCircle">
+        <value>Самый большой круг: Идентификатор: '{0}'. Центр: '{1}'. Радиус: '{2}'.</value>
+    </data>
+    <data name="StartPointX">
+        <value>Начальная точка: X: '{0}', Y: '{1}'.</value>
+    </data>
+    <data name="EndPointX">
+        <value>Конечная точка: X: '{0}', Y: '{1}'.</value>
+    </data>
+    <data name="ParsingPolylines">
+        <value>Чтение полилиний...</value>
+    </data>
+    <data name="ParsingPolyline">
+        <value>Чтение полилинии: Идентификатор: '{0}'. Количество вершин: '{1}'</value>
+    </data>
+    <data name="VertexExists">
+        <value>Вершина в позиции '{0}' уже существует. Пропуск...</value>
+    </data>
+    <data name="DrillVertex">
+        <value>Точка сверления: Отступ по X: '{0}'. Отступ по Y: '{1}'. Время сверления: '{2}'.</value>
+    </data>
+    <data name="ParsingDxfFileComplete">
+        <value>Чтение  DXF файла '{0}' завершено.</value>
+    </data>
+    <data name="BuildingNcPrograms">
+        <value>Построение NC программ...</value>
+    </data>
+    <data name="SavingNcPrograms">
+        <value>Сохранение NC программ...</value>
+    </data>
+    <data name="NcFileSaved">
+        <value>NC файл '{0}' сохранен.</value>
+    </data>
 </root>

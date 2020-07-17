@@ -64,7 +64,7 @@
         <value>Parsing DXF file: '{0}'...</value>
     </data>
     <data name="BiggestCircle">
-        <value>Biggest circle: Handle: '{0}' Center: '{1}', Radius: '{2}'.</value>
+        <value>Biggest circle: Handle: '{0}'. Center: '{1}'. Radius: '{2}'.</value>
     </data>
     <data name="StartPointX">
         <value>Start point: X: '{0}', Y: '{1}'.</value>
@@ -79,10 +79,10 @@
         <value>Parsing polyline: Handle: '{0}'. Vertexes count: '{1}'</value>
     </data>
     <data name="VertexExists">
-        <value>Vertex at position {0} already exists. Passing...</value>
+        <value>Vertex at position '{0}' already exists. Passing...</value>
     </data>
     <data name="DrillVertex">
-        <value>Drill vertex: X offset: '{0}', Y offset: '{1}', Drill time: '{2}'.</value>
+        <value>Drill vertex: X offset: '{0}'. Y offset: '{1}'. Drill time: '{2}'.</value>
     </data>
     <data name="ParsingDxfFileComplete">
         <value>Parsing DXF file '{0}' complete.</value>
