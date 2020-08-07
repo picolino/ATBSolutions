@@ -55,8 +55,8 @@ namespace ATB.DxfToNcConverter.Systems
                         ncStringBuilder.AppendLine($"Y{sign}{vertexDrillParameter.offsetY:0.####}");
                     }
                     
-                    ncStringBuilder.AppendLine($"M3G4P{vertexDrillParameter.drillTime:0.##}");
-                    ncStringBuilder.AppendLine("M5");
+                    ncStringBuilder.AppendLine($"M3S100G4P{vertexDrillParameter.drillTime:0.##}");
+                    ncStringBuilder.AppendLine($"M5G4P{vertexDrillParameter.drillTime:0.##}");
                     
                     ncStringBuilder.AppendLine();
                 }
@@ -68,7 +68,7 @@ namespace ATB.DxfToNcConverter.Systems
                 ref var ncProgramComponent = ref ncParametersEntity.Get<NcProgram>();
                 ncProgramComponent.programText = ncStringBuilder.ToString();
                 
-                Thread.CurrentThread.CurrentCulture = currentThreadCulture; // Reset culture
+                Thread.CurrentThread.CurrentCulture = currentThreadCulture;
             }
         }
     }
