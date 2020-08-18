@@ -96,4 +96,10 @@
     <data name="NcFileSaved">
         <value>NC file '{0}' saved.</value>
     </data>
+    <data name="PolylineVertexIsOutsideOfTheBiggestCircleErrorMessage" xml:space="preserve">
+        <value>All polylines in DXF file '{0}' must be placed inside the biggest circle.</value>
+    </data>
+    <data name="NotEnoughCirclesErrorMessage" xml:space="preserve">
+        <value>DXF file '{0}' must contain at least one circle element.</value>
+    </data>
 </root>

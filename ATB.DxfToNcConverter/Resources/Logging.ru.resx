@@ -96,4 +96,10 @@
     <data name="DebugModeActivated">
         <value>Режим отладки активирован.</value>
     </data>
+    <data name="PolylineVertexIsOutsideOfTheBiggestCircleErrorMessage" xml:space="preserve">
+        <value>Все полилинии в DXF файле '{0}' должны находиться внутри самого большого круга.</value>
+    </data>
+    <data name="NotEnoughCirclesErrorMessage" xml:space="preserve">
+        <value>DXF файл '{0}' должен содержать хотя-бы один круг.</value>
+    </data>
 </root>

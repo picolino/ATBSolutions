@@ -1,10 +1,12 @@
 ﻿using System;
+using ATB.DxfToNcConverter.Resources;
 
 namespace ATB.DxfToNcConverter.Exceptions
 {
     public class PolylineVertexIsOutsideOfTheBiggestCircleException : DxfParseExceptionBase
     {
-        public PolylineVertexIsOutsideOfTheBiggestCircleException(string dxfFilePath) : base($"All polylines in DXF file '{dxfFilePath}' must be placed inside the biggest circle.")
+        public PolylineVertexIsOutsideOfTheBiggestCircleException(string dxfFilePath) 
+            : base(string.Format(Logging.PolylineVertexIsOutsideOfTheBiggestCircleErrorMessage, dxfFilePath))
         {
         }
     }

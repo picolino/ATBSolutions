@@ -160,6 +160,15 @@ namespace ATB.DxfToNcConverter.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DXF file &apos;{0}&apos; must contain at least one circle element..
+        /// </summary>
+        internal static string NotEnoughCirclesErrorMessage {
+            get {
+                return ResourceManager.GetString("NotEnoughCirclesErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parsing DXF file: &apos;{0}&apos;....
         /// </summary>
         internal static string ParsingDxfFile {
@@ -201,6 +210,15 @@ namespace ATB.DxfToNcConverter.Resources {
         internal static string ParsingPolylines {
             get {
                 return ResourceManager.GetString("ParsingPolylines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All polylines in DXF file &apos;{0}&apos; must be placed inside the biggest circle..
+        /// </summary>
+        internal static string PolylineVertexIsOutsideOfTheBiggestCircleErrorMessage {
+            get {
+                return ResourceManager.GetString("PolylineVertexIsOutsideOfTheBiggestCircleErrorMessage", resourceCulture);
             }
         }
         
